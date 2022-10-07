@@ -141,6 +141,9 @@ class MemCache:
         self.hit += 1
         return True
 
+    def keyAvaliable(self):
+        return self.cache.keys()
+
     def switchToLRU(self):
         if self.policy == 'RANDOM':
             self.policy = 'LRU'
