@@ -22,7 +22,7 @@ class MemCache:
 
     def __init__(self, cap, policy):
         self.left = Node(0, 0)
-        self.right = None(0, 0)
+        self.right = Node(0, 0)
         self.cap = cap * 1024 * 1024
         self.cache = {}
         self.right.prev = self.left
@@ -95,13 +95,13 @@ class MemCache:
 
         if key in self.cache:
             self.remove(self.cache[key])
-            self.space -= self.cache[key]
+            self.space -= sys.getsizeof(self.cache[key])
             self.size -= 1
 
         new_node = Node(key, val)
         self.cache[key] = new_node
         self.insert(self.cache[key])
-        self.space += self.cache[key]
+        self.space += sys.getsizeof(self.cache[key])
         self.size += 1
 
         while self.space > self.cap:
