@@ -35,6 +35,7 @@ class MemCache:
         self.hit = 0
         self.missed = 0
         self.total = 0
+
     """
     Helper function:
     Always inserted to the right most position in Double LinkedList
@@ -70,7 +71,7 @@ class MemCache:
             self.total += 1
             return -1
         self.remove(self.cache[key])
-        self.insert(self.cahce[key])
+        self.insert(self.cache[key])
 
         self.total += 1
         self.hit += 1
@@ -106,11 +107,13 @@ class MemCache:
 
         while self.space > self.cap:
             if self.policy == 'LRU':
+
                 lru = self.left.next
-                self.invalidateKey(lru)
+                self.invalidateKey(lru.key)
+
             else:
                 random_key = random.choice(list(self.cache))
-                self.invalidateKey(random_key)
+                self.invalidateKey(random_key.key)
 
         return True
     """
@@ -129,9 +132,6 @@ class MemCache:
     """
     def invalidateKey(self, key):
         self.total += 1
-        if key not in self.cache:
-            self.missed += 1
-            return False
 
         removed = self.cache[key]
         self.space -= sys.getsizeof(removed)
@@ -174,3 +174,6 @@ class MemCache:
     def refreshConfiguration(self):
         # read Stats from DB
         return
+
+    def getCap(self):
+        return self.cap
