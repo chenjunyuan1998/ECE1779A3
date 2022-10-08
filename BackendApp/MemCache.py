@@ -113,7 +113,7 @@ class MemCache:
 
             else:
                 random_key = random.choice(list(self.cache))
-                self.invalidateKey(random_key.key)
+                self.invalidateKey(random_key)
 
         return True
     """
