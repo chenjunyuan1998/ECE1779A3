@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload or Search</title>
+</head>
+<h2>Select a file to upload</h2>
+
+<body>
+        <form action="{{ url_for('get')}}" method="post">
+            <label>key:</label>
+            <input type="text" name="key" />
+            <input type="submit" value="get" />
+        </form>
+
+        <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
+            <label>key:</label>
+            <!--input type="text" name="key" /-->
+            <input type="text" name="key" maxlength="10" required>
+            <label>value:</label>
+            <input type="file" class="custom-file-input" name="file" required>
+            <!--input type="file" name="file" /-->
+            <input type="submit" value="upload" />
+        </form>
+</body>
+</html>
