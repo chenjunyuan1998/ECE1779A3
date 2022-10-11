@@ -148,9 +148,19 @@ class MemCache:
         self.size -= 1
         self.hit += 1
 
+    """
+    size : nums of items
+    space : allocated space in cache
+    total : total request
+    hit : hitting request
+    missed : missed request
+    """
     def updateStats(self):
         db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
 
+    """
+    update new capacity and policy
+    """
     def refreshConfiguration(self):
         conf = db.get_config()
         self.cap = conf[0]
