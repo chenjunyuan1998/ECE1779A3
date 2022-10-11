@@ -1,4 +1,6 @@
 from flask import render_template, url_for, request, flash, redirect
+
+import BackendApp.db
 from app import webapp, memcache
 from flask import json
 import os
@@ -13,8 +15,9 @@ def get():
     key = request.form.get('key')
     result = memcache.get(key)
 
-
     if result == -1:
+        #BackendApp.db.get_images(key)
+
         response = webapp.response_class(
             response=json.dumps("Unknown key"),
             status=400,
@@ -37,6 +40,9 @@ def upload():
 
     #value = request.form.get('file')
     memcache.put(key, fname)
+    #BackendApp.db.put_image(key,fname)
+
+
     print(fname)
 
     response = webapp.response_class(

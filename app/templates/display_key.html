@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Available Key</title>
 </head>
+<h2>Current Stored Key</h2>
 <body>
        {% for key in keyList %}
       <li>{{ key }} </li>
        {% endfor %}
+<a href="{{ url_for('main')}}" data-item ="main">Main</a>
 </body>
 </html>
