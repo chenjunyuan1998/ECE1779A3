@@ -14,7 +14,7 @@ class Node:
 class MemCache:
     """
     Policy is restricted to LRU and RANDOM
-    Cap is capacity in bytes
+    Cap is capacity in MB
     Cache : a dictionary which value is a Node
     Size : the number of items in the memCache
     Space : memory usage
@@ -128,6 +128,7 @@ class MemCache:
 
     def clear(self):
         self.space = 0
+        self.size = 0
         self.cache.clear()
         self.right.prev = self.left
         self.left.next = self.right
@@ -140,7 +141,6 @@ class MemCache:
 
     def invalidateKey(self, key):
         self.total += 1
-        db.delete_image(key)
         removed = self.cache[key]
         self.space -= sys.getsizeof(removed)
         self.remove(removed)
@@ -150,7 +150,7 @@ class MemCache:
 
     def updateStats(self):
         db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
-    
+
     def refreshConfiguration(self):
         conf = db.get_config()
         self.cap = conf[0]
@@ -171,14 +171,6 @@ class MemCache:
 
     def getSpace(self):
         return self.space
-
-    def updatedStats(self):
-        # updated Stats to DB
-        return
-
-    def refreshConfiguration(self):
-        # read Stats from DB
-        return
 
     def getCap(self):
         return self.cap
