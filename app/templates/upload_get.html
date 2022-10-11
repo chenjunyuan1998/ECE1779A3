@@ -15,11 +15,11 @@
 
         <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
             <label>key:</label>
-            <!--input type="text" name="key" /-->
+
             <input type="text" name="key" maxlength="10" required>
             <label>value:</label>
             <input type="file" class="custom-file-input" name="file" required>
-            <!--input type="file" name="file" /-->
+
             <input type="submit" value="upload" />
         </form>
 </body>

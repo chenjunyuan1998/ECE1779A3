@@ -7,6 +7,7 @@ from flask import json
 
 @webapp.route('/display_statistics')
 def display_statistics():
+
     memcache.updateStats()
     result = BackendApp.db.get_stats()
     print (result)

@@ -6,8 +6,33 @@
 
 </head>
 <h2>Mem-cache current statistics</h2>
+<head>
+  <meta http-equiv="refresh" content="600">
+</head>
+<table class = "keytable">
+<thead>
+           <th>Number of Items</th>
+           <th>Total size of items</th>
+           <th>Number of Requests</th>
+           <th>Hit </th>
+           <th>Miss </th>
+           <th>Time Stamp</th>
+
+
+</thead>
+
+
+       <tr>
+           <td>{{ result[1] }} </td>
+           <td>{{ result[2] }} </td>
+           <td>{{ result[3] }} </td>
+           <td>{{ result[4] }} </td>
+           <td>{{ result[5] }} </td>
+           <td>{{ result[6] }} </td>
+       </tr>
+
+</table>
 <body>
-<p>{{result}}</p>
 <a href="{{ url_for('main')}}" data-item ="main">Main</a>
 </body>
 </html>

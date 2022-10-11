@@ -5,10 +5,20 @@
     <title>Available Key</title>
 </head>
 <h2>Current Stored Key</h2>
-<body>
+<table class = "keytable">
+<thead>
+           <th>Key</th>
+           <th>Location</th>
+
+</thead>
+
        {% for key in keyList %}
-      <li>{{ key }} </li>
+       <tr>
+           <td>{{ key[1] }} </td>
+           <td>{{ key[2] }} </td>
+       </tr>
        {% endfor %}
+</table>
 <a href="{{ url_for('main')}}" data-item ="main">Main</a>
-</body>
+
 </html>
