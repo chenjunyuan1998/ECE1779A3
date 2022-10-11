@@ -1,6 +1,6 @@
 import random
 import sys
-
+from BackendApp import db
 
 class Node:
     def __init__(self, key, value):
@@ -93,16 +93,6 @@ class MemCache:
     Depends on the policy, we randomly delete/delete LRU in the cache until the space is enough
     """
 
-
-    
-    Else if the key is already exist in memcache
-    First delete its appearance in the ListList and reduce the size 
-    Create a new Node of key, val and insert it into Linkedlist and Cache
-    
-    If the space is larger than capacity
-    Depends on the policy, we randomly delete/delete LRU in the cache until the space is enough
-    """
-
     def put(self, key, val):
         if sys.getsizeof(val) > self.cap:
             self.missed += 1
@@ -150,25 +140,22 @@ class MemCache:
 
     def invalidateKey(self, key):
         self.total += 1
-
+        db.delete_image(key)
         removed = self.cache[key]
         self.space -= sys.getsizeof(removed)
         self.remove(removed)
         del self.cache[removed.key]
         self.size -= 1
         self.hit += 1
-        return True
 
-    def keyAvaliable(self):
-        return self.cache.keys()
+    def updateStats(self):
+        db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
+    
+    def refreshConfiguration(self):
+        conf = db.get_config()
+        self.cap = conf[0]
+        self.policy = conf[1]
 
-    def switchToLRU(self):
-        if self.policy == 'RANDOM':
-            self.policy = 'LRU'
-
-    def switchToRANDOM(self):
-        if self.policy == 'LRU':
-            self.policy = 'RANDOM'
 
     def getMissRate(self):
         return self.missed / self.total if self.total != 0 else 0
