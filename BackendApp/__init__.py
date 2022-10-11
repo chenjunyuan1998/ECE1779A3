@@ -1,6 +1,7 @@
 from flask import Flask
 from BackendApp import MemCache
 
-#global cache
+global cache
 
-#cache = MemCache.MemCache()
+cache = MemCache.MemCache()
+

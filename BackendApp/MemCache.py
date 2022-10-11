@@ -84,10 +84,21 @@ class MemCache:
     If the size of the input val is larger than the cap itself
     return false which means no matter what we cannot put the val into the memcache
 
+
     Else if the key is already exist in memcache
     First delete its appearance in the ListList and reduce the size 
     Create a new Node of key, val and insert it into Linkedlist and Cache
 
+    If the space is larger than capacity
+    Depends on the policy, we randomly delete/delete LRU in the cache until the space is enough
+    """
+
+
+    
+    Else if the key is already exist in memcache
+    First delete its appearance in the ListList and reduce the size 
+    Create a new Node of key, val and insert it into Linkedlist and Cache
+    
     If the space is larger than capacity
     Depends on the policy, we randomly delete/delete LRU in the cache until the space is enough
     """
