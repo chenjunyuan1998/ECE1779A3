@@ -4,3 +4,4 @@ from BackendApp import MemCache
 global cache
 
 cache = MemCache.MemCache()
+
