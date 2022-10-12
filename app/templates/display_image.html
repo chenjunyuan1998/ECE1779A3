@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% block rel %}
-    <link rel="stylesheet" href="/static/css/display_image.css">
+    <link rel="stylesheet" href="/static/css/main.css">
 {% endblock %}
 <html lang="en">
 <head>
@@ -8,12 +8,12 @@
     <title>Display image</title>
 </head>
 <body>
-    <!--h1>{{result}}</h1-->
+
 
         <div>
 
              <img src="{{ result }}">
         </div>
-
+        <a href="{{ url_for('main')}}" data-item ="main">Main</a>
 </body>
 </html>

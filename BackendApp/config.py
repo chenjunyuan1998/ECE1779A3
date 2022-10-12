@@ -7,6 +7,6 @@
 
 # Local Config
 db_config = {'user': 'root',
-             'password': 'YOUR_MYSQL_SERVER_PASSWORD',
+             'password': 'LTian0702',
              'host': '127.0.0.1',
              'database': 'ImageDB'}

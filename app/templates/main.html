@@ -8,27 +8,16 @@
     <title>Memcache app main page</title>
 </head>
 
-<!--p data-item='IMG Memcache'>IMG Memcache</p-->
+
 
 <section>
     <div>Welcome, please select your option:</div>
     <nav>
         <ul class="menuItems">
-          <li><a href="{{ url_for('upload_get')}}" data-item ="Image">Image</a></li>
+          <li><a href="{{ url_for('upload_search')}}" data-item ="Image">Image</a></li>
           <li><a href="{{ url_for('display_key')}}" data-item ="Key">Key</a></li>
           <li><a href="{{ url_for('config_memcache')}}" data-item ="Configure">Configure</a></li>
-          <li><a href="{{ url_for('display_memcache')}}" data-item ="Statistics">Statistics</a></li>
+          <li><a href="{{ url_for('display_statistics')}}" data-item ="Statistics">Statistics</a></li>
         </ul>
     </nav>
 </section>
-<!--html>
-    <body>
-
-      <ul>
-          <li><a href="{{ url_for('upload_get')}}">Upload and Search</a></li>
-          <li><a href="{{ url_for('display_key')}}">Available Key</a></li>
-          <li><a href="{{ url_for('config_memcache')}}">Configure Mem-cache</a></li>
-          <li><a href="{{ url_for('display_memcache')}}">Current Mem-cache Statistics</a></li>
-      </ul>
-    <body>    
-</html-->

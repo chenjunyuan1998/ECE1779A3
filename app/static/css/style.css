@@ -1,0 +1,110 @@
+table {
+  border-spacing: 1px;
+  border-collapse: collapse;
+  background: white;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+table * {
+  position: relative;
+}
+table td, table th {
+  padding-left: 8px;
+}
+table thead tr {
+  height: 60px;
+  background: #8da4f8;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #f9f9f9;
+}
+table tbody tr {
+  height: 48px;
+  border-bottom: 1px solid #dad5f1;
+  color: #677bc5;
+}
+table tbody tr:last-child {
+  border: 0;
+}
+table td, table th {
+  text-align: left;
+}
+table td.l, table th.l {
+  text-align: right;
+}
+table td.c, table th.c {
+  text-align: center;
+}
+table td.r, table th.r {
+  text-align: center;
+}
+
+blockquote {
+  color: white;
+  text-align: center;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  font-family: Verdana, monospace;
+
+}
+a{
+  text-transform: uppercase;
+  color: #8da4f8;
+}
+h2{
+  text-transform: uppercase;
+  color: #677bc5;
+}
+input[type = submit]{
+  font-family: Verdana, monospace;
+  background: #8da4f8;
+  color: #f9f9f9;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
+}
+label{
+  font-family: Verdana, monospace;
+  text-transform: uppercase;
+  color: #677bc5;
+
+}
+input[type = file]{
+  font-family: Verdana, monospace;
+  border: none;
+  cursor: pointer;
+
+}
+input[type = text]{
+  border-color: #8da4f8;
+
+}
+option{
+  font-family: Verdana, monospace;
+  background: #8da4f8;
+  color: #f9f9f9;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  padding: 6px 16px;
+}
+select{
+  font-family: Verdana, monospace;
+  text-transform: uppercase;
+  background: #dad5f1;
+  color: #677bc5;
+  border: none;
+}
+
+
+
+
+
