@@ -18,7 +18,8 @@ DROP TABLE IF EXISTS `ImageDB`.`Image`;
 
 CREATE TABLE IF NOT EXISTS `ImageDB`.`Image` (
   `iid` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL UNIQUE,
+  `_key` VARCHAR(45) NOT NULL UNIQUE,
+  `name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`iid`))
 ENGINE = InnoDB ;
@@ -62,7 +63,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ImageDB`;
--- INSERT INTO `ImageDB`.`Image` (`name`, `location`) VALUES ("img1.png", "/Users/images/img1");
+-- INSERT INTO `ImageDB`.`Image` (`_key`, `name`, `location`) VALUES ("key1", "img1.png", "/Users/images/img1");
 INSERT INTO `ImageDB`.`Stats` (`num_items`, `size_items`, `num_requests`, `num_hit`, `num_miss`, `_timestamp`) VALUES (0, 0, 0, 0, 0, CURRENT_TIMESTAMP);
 -- INSERT INTO `ImageDB`.`Config` (`capacity`, `replacement_policy`) VALUES (0, "Random");
 COMMIT;
