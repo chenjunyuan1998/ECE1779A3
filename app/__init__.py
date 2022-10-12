@@ -6,8 +6,7 @@ global memcache
 
 webapp = Flask(__name__)
 webapp.secret_key = 'secret key'
-#memcache = {}
-memcache = BackendApp.MemCache.MemCache(1000,"LRU")
+memcache = BackendApp.MemCache.MemCache(12,"LRU")
 db = BackendApp.db
 
 
