@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+{% block rel %}
+    <link rel="stylesheet" href="/static/css/style.css">
+{% endblock %}
 <head>
     <meta charset="UTF-8">
     <title>Upload or Search</title>
@@ -18,7 +21,7 @@
 
             <input type="text" name="key" maxlength="10" required>
             <label>value:</label>
-            <input type="file" class="custom-file-input" name="file" required>
+            <input type="file" class="custom-file-input" name="file" value="Select File" required>
 
             <input type="submit" value="upload" />
         </form>

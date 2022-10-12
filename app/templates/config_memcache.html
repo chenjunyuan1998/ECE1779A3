@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+{% block rel %}
+    <link rel="stylesheet" href="/static/css/style.css">
+{% endblock %}
 <head>
     <meta charset="UTF-8">
     <title>Configure mem-cache</title>
@@ -18,8 +21,9 @@
      {% endwith %}
 
     <form action="{{ url_for('set_configure')}}"  enctype="multipart/form-data" method="post">
-      Capacity <input type="text" name="capacity" required>MB<br />
-      Replacement Policy
+         <label>Capacity </label>
+        <input type="text" name="capacity" required><label>MB</label><br />
+        <label>Replacement Policy</label>
       <select name="policy">
           <option value="Random" selected="selected">Random Replacement</option>
           <option value="LRU">Least Recently Used</option>

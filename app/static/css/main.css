@@ -27,22 +27,6 @@ p {
   transition: all 1s ease-in-out;
   position: relative;
 }
-/*p::before {
-  content: attr(data-item);
-  transition: all 1s ease-in-out;
-  color: #4c91af;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 0;
-  overflow: hidden;
-}
-p:hover::before {
-  width: 100%;
-}
-*/
 nav {
   margin: 25px;
   background: #f9f9f9;
@@ -80,5 +64,12 @@ nav .menuItems li a:hover::before {
   width: 100%;
   transition: all 0.5s ease-in-out;
 }
-
+img {
+  width: 80%;
+  height: 80%;
+}
+a{
+  text-transform: uppercase;
+  color: #8da4f8;
+}
 

@@ -12,17 +12,24 @@ def upload_get():
 
 @webapp.route('/get', methods=['POST'])
 def get():
+
     key = request.form.get('key')
     result = memcache.get(key)
 
-    if result == -1:
-        #BackendApp.db.get_images(key)
+    response = webapp.response_class(
+        response=json.dumps("Unknown key"),
+        status=400,
+        mimetype='application/json'
+    )
 
-        response = webapp.response_class(
-            response=json.dumps("Unknown key"),
-            status=400,
-            mimetype='application/json'
-        )
+    if result == -1:  # if can't get location from memcache, get location from DB
+        #DBresult = BackendApp.db.get_images(key)  # method from db to get image location using specific key
+        #if DBresult == '':
+            #return response
+        #else:
+            #memcache.put(key,DBresult)
+            #return render_template("display_image.html", result = DBresult[4:])
+
         return response
     else:
         print(result)
@@ -40,7 +47,7 @@ def upload():
 
     #value = request.form.get('file')
     memcache.put(key, fname)
-    #BackendApp.db.put_image(key,fname)
+    #BackendApp.db.put_image(key,fname) # method from db to put image
 
 
     print(fname)
