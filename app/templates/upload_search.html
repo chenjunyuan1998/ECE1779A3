@@ -7,10 +7,10 @@
     <meta charset="UTF-8">
     <title>Upload or Search</title>
 </head>
-<h2>Select a file to upload</h2>
+<h2>Upload or Search </h2>
 
 <body>
-        <form action="{{ url_for('get')}}" method="post">
+        <form action="{{ url_for('search')}}" method="post">
             <label>key:</label>
             <input type="text" name="key" />
             <input type="submit" value="get" />
