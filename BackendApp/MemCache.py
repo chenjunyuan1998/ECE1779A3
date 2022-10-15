@@ -1,5 +1,7 @@
 import random
 import sys
+import time
+
 from BackendApp import db
 
 class Node:
@@ -156,7 +158,7 @@ class MemCache:
     missed : missed request
     """
     def updateStats(self):
-        db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
+       db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
 
     """
     update new capacity and policy
