@@ -46,7 +46,6 @@ def upload():
     new_image.save(fname)
     print(fname)
 
-    #value = request.form.get('file')
     memcache.put(key, fname)
     BackendApp.db.put_image(key,fname,'app/static/images') # method from db to put image
 

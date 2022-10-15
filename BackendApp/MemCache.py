@@ -1,5 +1,7 @@
 import random
 import sys
+import time
+
 from BackendApp import db
 
 class Node:
@@ -149,7 +151,7 @@ class MemCache:
         self.hit += 1
 
     def updateStats(self):
-        db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
+       db.put_stats(self.size, self.space, self.total, self.hit, self.missed)
 
     def refreshConfiguration(self):
         conf = db.get_config()
