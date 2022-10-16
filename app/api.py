@@ -11,9 +11,14 @@ import BackendApp.db
 from app import webapp, memcache
 import os
 
+"""
+This file is for test only
+"""
+
 
 @webapp.route('/api/list_keys', methods=['GET', 'POST'])
 def test_display_key():
+    #test display key function
     keyList = BackendApp.db.get_key_list()
     display_list = []
     for key in keyList:
@@ -27,6 +32,7 @@ def test_display_key():
 
 @webapp.route('/api/key/<key_value>', methods=['GET','POST'])
 def test_search(key_value):
+    #test search function
     key = key_value
     result = memcache.get(key)
 
@@ -51,6 +57,7 @@ def test_search(key_value):
 
 @webapp.route('/api/upload', methods=['POST'])
 def test_upload():
+    #test upload function
     key = request.form.get("key")
 
     if key == '' or key is None:
