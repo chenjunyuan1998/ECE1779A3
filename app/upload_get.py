@@ -50,7 +50,6 @@ def upload():
     BackendApp.db.put_image(key,fname,'app/static/images') # method from db to put image
 
 
-
     response = webapp.response_class(
         response=json.dumps("OK"),
         status=200,
