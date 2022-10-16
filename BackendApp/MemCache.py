@@ -103,13 +103,13 @@ class MemCache:
 
         if key in self.cache:
             self.remove(self.cache[key])
-            self.space -= sys.getsizeof(self.cache[key])
+            self.space -= sys.getsizeof(self.cache[key].value)
             self.size -= 1
 
         new_node = Node(key, val)
         self.cache[key] = new_node
         self.insert(self.cache[key])
-        self.space += sys.getsizeof(self.cache[key])
+        self.space += sys.getsizeof(val)
         self.size += 1
 
         while self.space > self.cap:
@@ -144,7 +144,7 @@ class MemCache:
     def invalidateKey(self, key):
         self.total += 1
         removed = self.cache[key]
-        self.space -= sys.getsizeof(removed)
+        self.space -= sys.getsizeof(removed.value)
         self.remove(removed)
         del self.cache[removed.key]
         self.size -= 1
@@ -182,7 +182,7 @@ class MemCache:
         return (self.cap - self.space) // (1024 ** 2)
 
     def getSpace(self):
-        return self.space
+        return self.space // (1024 ** 2)
 
     def getCap(self):
         return self.cap
