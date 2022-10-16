@@ -1,6 +1,7 @@
 #!../venv/bin/python
 from app import webapp
-webapp.run('0.0.0.0',5000,debug=False)
+if __name__ == "main":
+    webapp.run(host = '0.0.0.0',port = 5000)
 
 
 
