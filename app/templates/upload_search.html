@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block rel %}
+    <link rel="stylesheet" href="/static/css/style.css">
+{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>Upload or Search</title>
+</head>
+<h2>Upload or Search </h2>
+
+<body>
+        <form action="{{ url_for('search')}}" method="post">
+            <label>key:</label>
+            <input type="text" name="key" />
+            <input type="submit" value="get" />
+        </form>
+
+        <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
+            <label>key:</label>
+
+            <input type="text" name="key" maxlength="10" required>
+            <label>value:</label>
+            <input type="file" class="custom-file-input" name="file" value="Select File" required>
+
+            <input type="submit" value="upload" />
+        </form>
+</body>
+</html>
