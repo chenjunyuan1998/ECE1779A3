@@ -7,5 +7,6 @@ from flask import json
 
 @webapp.route('/display_key')
 def display_key():
+    #display key from database
     keyList = BackendApp.db.get_key_list()
     return render_template("display_key.html", keyList = keyList)

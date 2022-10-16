@@ -14,7 +14,7 @@ def set_configure():
 
     capacity = request.form.get('capacity')
     policy = request.form.get('policy')
-
+    #check if the capacity is number
     if capacity.isdigit():
         BackendApp.db.put_config(capacity,policy)
         memcache.refreshConfiguration()

@@ -28,8 +28,8 @@ def search():
             return response
         else:
             fname = os.path.join('app/static/images', key)
-            memcache.put(key,fname)
-            return render_template("display_image.html", result = fname[4:])
+            memcache.put(key,fname)#save current request to memcache
+            return render_template("display_image.html", result = fname[4:])#return image address
 
         return response
     else:
@@ -44,11 +44,10 @@ def upload():
     new_image = request.files['file']
     fname = os.path.join('app/static/images', key)
     new_image.save(fname)
-    print(fname)
+    #print(fname)
 
-    memcache.put(key, fname)
+    memcache.put(key, fname)# method from memcache to put image
     BackendApp.db.put_image(key,fname,'app/static/images') # method from db to put image
-
 
 
     response = webapp.response_class(

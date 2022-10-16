@@ -6,5 +6,4 @@ from flask import json
 
 @webapp.route('/')
 def main():
-
     return render_template("main.html")
