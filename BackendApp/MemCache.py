@@ -179,10 +179,10 @@ class MemCache:
         return self.size
 
     def getCapacityLeft(self):
-        return (self.cap - self.space) // (1024 ** 2)
+        return (self.cap - self.space) / (1024 ** 2)
 
     def getSpace(self):
-        return self.space // (1024 ** 2)
+        return self.space / (1024 ** 2)
 
     def getCap(self):
         return self.cap
