@@ -48,7 +48,7 @@ class Cache:
                 del self.persistent_store[username][key]
                 return 0
 
-        self.addToPersistent(self, username, key)
+        self.addToPersistent(username,key)
 
         return 1
 
