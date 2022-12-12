@@ -40,7 +40,6 @@ class Cache:
                     # all space is allocated for presistent data, ask user to delete mannually
                 popped = self.lru_dict[username].popitem(last=False)
                 self.space_dict[username] -= sys.getsizeof(popped[1])
-
         else:
             cur = sys.getsizeof(self.persistent_store[username][key])
             self.space_dict[username] -= cur
@@ -108,6 +107,3 @@ class Cache:
             self.count_dict[username][key] += 1
             self.addToPersistent(username, key)
             return self.lru_dict[username][key]
-
-
-
