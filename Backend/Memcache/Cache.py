@@ -42,13 +42,19 @@ class Cache:
                 self.space_dict[username] -= sys.getsizeof(popped[1])
 
         else:
-            self.space_dict[username] -= sys.getsizeof(self.persistent_store[username][key])
+            cur = sys.getsizeof(self.persistent_store[username][key])
+            self.space_dict[username] -= cur
+            if self.space_dict[username] + value > self.capacity_dict[username]:
+                while self.space_dict[username] > self.capacity_dict[username]:
+                    if not self.lru_dict[username]:
+                        self.space_dict[username] += cur
+                        return 0
+                        # all space is allocated for presistent data, ask user to delete mannually
+                    popped = self.lru_dict[username].popitem(last=False)
+                    self.space_dict[username] -= sys.getsizeof(popped[1])
+
             self.persistent_store[username][key] = value
             self.space_dict[username] += sys.getsizeof(value)
-            if self.space_dict[username] > self.capacity_dict[username]:
-                self.space_dict[username] -= sys.getsizeof(self.persistent_store[username][key])
-                del self.persistent_store[username][key]
-                return 0
 
         self.addToPersistent(username,key)
 
@@ -69,12 +75,25 @@ class Cache:
         del self.persistent_store[username][key]
         self.persistent_key[username].remove(key)
 
+    def deleteValue(self, username, key):
+        if key not in self.lru_dict[username] and key not in self.persistent_key[username]:
+            return False
+
+        if key in self.lru_dict[username]:
+            popped = self.lru_dict[username][key]
+            self.space_dict -= sys.getsizeof(popped)
+            del self.lru_dict[username][key]
+        else:
+            self.deleteFromPersistent(username, key)
+        return True
+
     def delete_user(self, username):
         del self.persistent_key[username]
         del self.lru_dict[username]
         del self.space_dict[username]
         del self.persistent_store[username]
         del self.count_dict[username]
+        del self.capacity_dict[username]
 
     def get_key(self,username, key):
         if key not in self.lru_dict[username]:
