@@ -6,7 +6,7 @@ from collections import OrderedDict
 class Cache:
     def __init__(self):
         self.persistent_key = defaultdict(set)
-        self.presistent_store = defaultdict(dict)
+        self.persistent_store = defaultdict(dict)
         self.lru_dict = defaultdict(OrderedDict)
         self.capacity_dict = defaultdict(int)
         self.space_dict = defaultdict(int)
@@ -40,12 +40,12 @@ class Cache:
                 self.space_dict[username] -= sys.getsizeof(popped[1])
 
         else:
-            self.space_dict[username] -= sys.getsizeof(self.presistent_store[username][key])
-            self.presistent_store[username][key] = value
+            self.space_dict[username] -= sys.getsizeof(self.persistent_store[username][key])
+            self.persistent_store[username][key] = value
             self.space_dict[username] += sys.getsizeof(value)
             if self.space_dict[username] > self.capacity_dict[username]:
-                self.space_dict[username] -= sys.getsizeof(self.presistent_store[username][key])
-                del self.presistent_store[username][key]
+                self.space_dict[username] -= sys.getsizeof(self.persistent_store[username][key])
+                del self.persistent_store[username][key]
                 return 0
 
         self.addToPersistent(self, username, key)
@@ -60,18 +60,18 @@ class Cache:
             popped = self.lru_dict[username][key]
             del self.lru_dict[username][key]
             self.persistent_key[username].add(key)
-            self.presistent_store[username][key] = popped
+            self.persistent_store[username][key] = popped
 
     def deleteFromPersistent(self, username, key):
-        self.space_dict -= sys.getsizeof(self.presistent_store[username][key])
-        del self.presistent_store[username][key]
+        self.space_dict -= sys.getsizeof(self.persistent_store[username][key])
+        del self.persistent_store[username][key]
         self.persistent_key[username].remove(key)
 
     def delete_user(self, username):
         del self.persistent_key[username]
         del self.lru_dict[username]
         del self.space_dict[username]
-        del self.presistent_store[username]
+        del self.persistent_store[username]
         del self.count_dict[username]
 
     def get_key(self,username, key):
@@ -80,7 +80,7 @@ class Cache:
                 return - 1
 
         if key in self.persistent_key[username]:
-            return self.presistent_store[username][key]
+            return self.persistent_store[username][key]
 
         if key in self.lru_dict[username]:
             self.lru_dict[username].move_to_end(key)
