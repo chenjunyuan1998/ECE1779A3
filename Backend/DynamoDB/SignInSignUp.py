@@ -44,7 +44,8 @@ def sign_up(event, context):
         credential_response = credential_table.put_item(
             Item={
                 'username': username,
-                'password': password
+                'password': password,
+                'capacity': 10
             }
         )
 
@@ -86,6 +87,31 @@ def close_account(event, context):
                 'statusCode': 200,
                 'body': json.dumps("DELETE_FAILED")
             }
+    else:
+        return {
+            'statusCode': 200,
+            'body': json.dumps("USER_NOT_FOUND")
+        }
+
+
+def update_capacity(event, context):
+    username = event['username']
+    capacity = event['capacity']
+
+    response = credential_table.get_item(Key={'username': username})
+    if response['Item']:
+        response = credential_table.update_item(
+            Key={'username': username},
+            UpdateExpression="SET capacity = :c",
+            ExpressionAttributeValues={
+                ':c': capacity,
+            },
+            ReturnValues="UPDATED_NEW"
+        )
+        return {
+            'statusCode': 200,
+            'body': json.dumps("UPDATED_CAPACITY")
+        }
     else:
         return {
             'statusCode': 200,
