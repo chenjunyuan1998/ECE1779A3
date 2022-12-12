@@ -86,7 +86,8 @@ class Cache:
 
         if key in self.lru_dict[username]:
             self.lru_dict[username].move_to_end(key)
-            self.count_dict[username] += 1
+            self.count_dict[username][key] += 1
+            self.addToPersistent(username, key)
             return self.lru_dict[username][key]
 
 
