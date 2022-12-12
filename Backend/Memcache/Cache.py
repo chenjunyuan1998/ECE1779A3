@@ -22,6 +22,8 @@ class Cache:
         if username not in self.capacity_dict:
             return -1
 
+        if key not in self.count_dict[username]:
+            self.count_dict[username][key] = 0
         self.count_dict[username][key] += 1
 
         if key not in self.persistent_key[username]:
