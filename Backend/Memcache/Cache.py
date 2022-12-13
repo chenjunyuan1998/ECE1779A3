@@ -2,6 +2,7 @@ import sys
 from collections import defaultdict
 from collections import OrderedDict
 
+
 # key: username, value: set of persistent keys
 class Cache:
     def __init__(self):
