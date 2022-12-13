@@ -84,7 +84,7 @@ class Cache:
 
         if key in self.lru_dict[username]:
             popped = self.lru_dict[username][key]
-            self.space_dict -= sys.getsizeof(popped)
+            self.space_dict[username] -= sys.getsizeof(popped)
             del self.lru_dict[username][key]
         else:
             self.deleteFromPersistent(username, key)
