@@ -74,7 +74,7 @@ class Cache:
             self.persistent_store[username][key] = popped
 
     def deleteFromPersistent(self, username, key):
-        self.space_dict -= sys.getsizeof(self.persistent_store[username][key])
+        self.space_dict[username] -= sys.getsizeof(self.persistent_store[username][key])
         del self.persistent_store[username][key]
         self.persistent_key[username].remove(key)
 
