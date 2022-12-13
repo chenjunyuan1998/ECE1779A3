@@ -15,10 +15,12 @@ def login():
 
         username = request.form.get('username')
         password =  request.form.get('password')
+        remember = True if request.form.get('remember') else False
 
         if CORRECT_PWD:
             msg = 'Logged in successfully !'
             user = 'username'
+            login_user(user, remember=remember)
             #get user info
             return render_template('profile.html', msg=msg, user=user)
         else:
