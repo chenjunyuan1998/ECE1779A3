@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Options</title>
+</head>
+<body>
+        <h3>Welcome, {{username}}</h3>
+        <div class = "info">Capacity in used: {{capacity}}</div>
+        <div class = "operations">
+            <div class = "upload and config">
+                <div class="status">{{ status }}</div>
+                    <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
+                        <label>key:</label>
+                        <input type="text" name="key" maxlength="10" required>
+                        <label>value:</label>
+                        <input type="file" class="custom-file-input" name="file" value="Select File" required>
+                        <input input type="hidden"  name="username" value={{username}}><br><br>
+                        <input type="submit" value="upload" />
+                    </form>
+
+                    <form action="{{ url_for('config')}}"  enctype="multipart/form-data" method="post">
+                        <label>Capacity </label>
+                        <input type="text" name="capacity" required><label>MB</label><br />
+                        <input input type="hidden"  name="username" value={{username}}><br><br>
+                        <input type="submit" value="Set">
+                    </form>
+            </div>
+            <form action="{{ url_for('view_all_image')}}" method="post">
+                <input input type="hidden"  name="username" value={{username}}><br><br>
+                <input type="submit" value="View All Image">
+            </form>
+            <form action="{{ url_for('logout')}}" method="post">
+                <input type="submit" value="Log out">
+            </form>
+
+            <form action="{{ url_for('close_account')}}" method="post">
+                <div class="msg">{{ msg }}</div>
+                <input input type="hidden"  name="username" value={{username}}><br><br>
+                <input type="submit" value="Delete Account">
+            </form>
+        </div>
+</body>
+</html>
