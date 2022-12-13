@@ -2,6 +2,7 @@ import sys
 from collections import defaultdict
 from collections import OrderedDict
 
+
 # key: username, value: set of persistent keys
 class Cache:
     def __init__(self):
@@ -15,10 +16,10 @@ class Cache:
     def set_cap(self, username, capacity):
         self.capacity_dict[username] = capacity * 1024 * 1024
 
-    def findFirst(self,ordDict):
+    def findFirst(self, ordDict):
         return next(iter(ordDict))
 
-    def put_key(self,username, key, value):
+    def put_key(self, username, key, value):
         if username not in self.capacity_dict:
             return -1
 
@@ -26,7 +27,7 @@ class Cache:
             self.count_dict[username][key] = 0
         self.count_dict[username][key] += 1
 
-        if key not in self.persistent_key[username]:
+        if key not in self.persistent_key[username] and key not in self.persistent_store[username]:
             if key in self.lru_dict[username]:
                 self.lru_dict[username].move_to_end(key)
                 self.space_dict[username] -= sys.getsizeof(self.lru_dict[username][key])
@@ -40,6 +41,9 @@ class Cache:
                     # all space is allocated for presistent data, ask user to delete mannually
                 popped = self.lru_dict[username].popitem(last=False)
                 self.space_dict[username] -= sys.getsizeof(popped[1])
+
+            self.addToPersistent(username, key)
+
         else:
             cur = sys.getsizeof(self.persistent_store[username][key])
             self.space_dict[username] -= cur
@@ -50,12 +54,11 @@ class Cache:
                         return 0
                         # all space is allocated for presistent data, ask user to delete mannually
                     popped = self.lru_dict[username].popitem(last=False)
+                    del self.count_dict[username][popped[0]]
                     self.space_dict[username] -= sys.getsizeof(popped[1])
 
             self.persistent_store[username][key] = value
             self.space_dict[username] += sys.getsizeof(value)
-
-        self.addToPersistent(username,key)
 
         return 1
 
@@ -63,16 +66,17 @@ class Cache:
         return self.count_dict[username][key]
 
     def addToPersistent(self, username, key):
-        if self.collectCount(username,key) > 10:
+        if self.collectCount(username, key) > 10:
             popped = self.lru_dict[username][key]
             del self.lru_dict[username][key]
             self.persistent_key[username].add(key)
             self.persistent_store[username][key] = popped
 
     def deleteFromPersistent(self, username, key):
-        self.space_dict -= sys.getsizeof(self.persistent_store[username][key])
+        self.space_dict[username] -= sys.getsizeof(self.persistent_store[username][key])
         del self.persistent_store[username][key]
         self.persistent_key[username].remove(key)
+        del self.count_dict[username][key]
 
     def deleteValue(self, username, key):
         if key not in self.lru_dict[username] and key not in self.persistent_key[username]:
@@ -80,7 +84,7 @@ class Cache:
 
         if key in self.lru_dict[username]:
             popped = self.lru_dict[username][key]
-            self.space_dict -= sys.getsizeof(popped)
+            self.space_dict[username] -= sys.getsizeof(popped)
             del self.lru_dict[username][key]
         else:
             self.deleteFromPersistent(username, key)
@@ -94,7 +98,7 @@ class Cache:
         del self.count_dict[username]
         del self.capacity_dict[username]
 
-    def get_key(self,username, key):
+    def get_key(self, username, key):
         if key not in self.lru_dict[username]:
             if key not in self.persistent_key[username]:
                 return - 1
