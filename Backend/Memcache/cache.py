@@ -33,7 +33,7 @@ class Cache:
                 self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)[1]
 
             self.lru_dict[username][key] = key
-            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)
+            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)[1]
             while self.space_dict[username] > self.capacity_dict[username]:
                 if not self.lru_dict[username]:
                     return 0
@@ -57,7 +57,7 @@ class Cache:
                     self.space_dict[username] -= s3Helper.delete_image_from_s3(username,popped[0])[1]
 
             self.persistent_key[username].add(key)
-            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)
+            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)[1]
 
         return 1
 
@@ -71,7 +71,7 @@ class Cache:
             self.persistent_key[username].add(key)
 
     def deleteFromPersistent(self, username, key):
-        self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)
+        self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)[1]
         self.persistent_key[username].remove(key)
         del self.count_dict[username][key]
 
