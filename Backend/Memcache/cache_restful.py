@@ -31,13 +31,13 @@ def get():
     username = req["username"]
     key = req["key"]
     response=cache_global.cache.get_key(username,key)
-    if response is None:
+    if not response:
         return "Unknown key"
     else:
         return response
 
 @webapp.route('/setCap', methods = ['POST'])
-def refresh_configs():
+def setCap():
     print("In the Route")
     req = request.get_json(force=True)
     username = req['username']
@@ -46,7 +46,7 @@ def refresh_configs():
     return get_response(True)
 
 @webapp.route('/deleteValue', methods = ['POST'])
-def delete():
+def deleteValue():
     req = request.get_json(force=True)
     username = req['username']
     key = req['key']
@@ -54,8 +54,15 @@ def delete():
     return get_response(True)
 
 @webapp.route('/deleteUser', methods = ['POST'])
-def delete():
+def deleteUser():
     req = request.get_json(force=True)
     username = req['username']
     cache_global.cache.delete_user(username)
     return get_response(True)
+
+@webapp.route('/showGallery', methods = ['POST'])
+def showGallery():
+    req = request.get_json(force=True)
+    username = req["username"]
+    response = cache_global.cache.showGallery(username)
+    return response
