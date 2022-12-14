@@ -14,20 +14,17 @@ def put_image_to_s3(request, key):
     """
     file = request.files['file']
     _, extension = os.path.splitext(file.filename)
-    try:
-        base64_image = base64.b64encode(file.read())
-        s3.put_object(Body=base64_image, Key=key, Bucket=bucket, ContentType='image')
-        print("Saved image to s3 bucket.")
-        image_url = 'https://s3.amazonaws.com/' + bucket + '/' + key + extension
-        image_size = sys.getsizeof(base64_image)
-        response = {
-            'image_key': key,
-            'image_url': image_url,
-            'image_size': image_size
-        }
-        return response
-    except:
-        return "UPLOAD_FAILED"
+    base64_image = base64.b64encode(file.read())
+    s3.put_object(Body=base64_image, Key=key, Bucket=bucket, ContentType='image')
+    print("Saved image to s3 bucket.")
+    image_url = 'https://s3.amazonaws.com/' + bucket + '/' + key + extension
+    image_size = sys.getsizeof(base64_image)
+    response = {
+        'image_key': key,
+        'image_url': image_url,
+        'image_size': image_size
+    }
+    return response
 
 
 def get_image_from_s3(key):
