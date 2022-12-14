@@ -1,5 +1,6 @@
 import json
 import boto3
+from flask import request
 
 dynamodb = boto3.resource('dynamodb')
 image_table = dynamodb.Table('UserImageTable')

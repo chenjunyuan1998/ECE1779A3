@@ -1,14 +1,18 @@
 import json
 import boto3
+from flask import request
+from Backend.DynamoDB import webapp
 
 dynamodb = boto3.resource('dynamodb')
 credential_table = dynamodb.Table('UserCredentialTable')
-image_table = dynamodb.Table('UserImageTable')
+# image_table = dynamodb.Table('UserImageTable')
 
 
-def sign_in(event, context):
-    username = event['username']
-    password = event['password']
+@webapp.route('/signIn', methods=['POST'])
+def sign_in():
+    req_json = request.get_json(force=True)
+    username = req_json['username']
+    password = req_json['password']
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
@@ -30,9 +34,11 @@ def sign_in(event, context):
         }
 
 
-def sign_up(event, context):
-    username = event["username"]
-    password = event["password"]
+@webapp.route('/signUp', methods=['POST'])
+def sign_up():
+    req_json = request.get_json(force=True)
+    username = req_json["username"]
+    password = req_json["password"]
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
@@ -49,20 +55,22 @@ def sign_up(event, context):
             }
         )
 
-        image_response = image_table.put_item(
-            Item={
-                'user': username
-            }
-        )
+        # image_response = image_table.put_item(
+        #     Item={
+        #         'user': username
+        #     }
+        # )
         return {
             'statusCode': 200,
             'body': json.dumps("CREATED_USER")
         }
 
 
-def close_account(event, context):
-    username = event["username"]
-    password = event["password"]
+@webapp.route('/closeAccount', methods=['POST'])
+def close_account():
+    req_json = request.get_json(force=True)
+    username = req_json["username"]
+    password = req_json["password"]
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
@@ -73,11 +81,11 @@ def close_account(event, context):
                     'username': username
                 }
             )
-            image_response = image_table.delete_item(
-                Item={
-                    'user': username
-                }
-            )
+            # image_response = image_table.delete_item(
+            #     Item={
+            #         'user': username
+            #     }
+            # )
             return {
                 'statusCode': 200,
                 'body': json.dumps("DELETED_USER")
@@ -94,9 +102,11 @@ def close_account(event, context):
         }
 
 
-def update_capacity(event, context):
-    username = event['username']
-    capacity = event['capacity']
+@webapp.route('/updateCapacity', methods=['POST'])
+def update_capacity():
+    req_json = request.get_json(force=True)
+    username = req_json['username']
+    capacity = req_json['capacity']
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
