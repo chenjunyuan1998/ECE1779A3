@@ -2,10 +2,11 @@ import json
 import boto3
 from flask import request
 from Backend.DynamoDB import webapp
+from Backend.Config import aws_config
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_key_id'],
+                          aws_secret_access_key=aws_config['aws_secret_access_key'])
 credential_table = dynamodb.Table('UserCredentialTable')
-# image_table = dynamodb.Table('UserImageTable')
 
 
 @webapp.route('/signIn', methods=['POST'])
@@ -47,23 +48,23 @@ def sign_up():
             'body': json.dumps("ALREADY_EXISTS")
         }
     else:
-        credential_response = credential_table.put_item(
-            Item={
-                'username': username,
-                'password': password,
-                'capacity': 10
+        if username.isalnum():  # username can only contain alphabet letters and numbers
+            credential_response = credential_table.put_item(
+                Item={
+                    'username': username,
+                    'password': password,
+                    'capacity': 10
+                }
+            )
+            return {
+                'statusCode': 200,
+                'body': json.dumps("CREATED_USER")
             }
-        )
-
-        # image_response = image_table.put_item(
-        #     Item={
-        #         'user': username
-        #     }
-        # )
-        return {
-            'statusCode': 200,
-            'body': json.dumps("CREATED_USER")
-        }
+        else:
+            return {
+                'statusCode': 200,
+                'body': json.dumps("INVALID_NAME")
+            }
 
 
 @webapp.route('/closeAccount', methods=['POST'])
@@ -81,11 +82,6 @@ def close_account():
                     'username': username
                 }
             )
-            # image_response = image_table.delete_item(
-            #     Item={
-            #         'user': username
-            #     }
-            # )
             return {
                 'statusCode': 200,
                 'body': json.dumps("DELETED_USER")
