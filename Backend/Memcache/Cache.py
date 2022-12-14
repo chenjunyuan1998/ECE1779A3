@@ -111,3 +111,14 @@ class Cache:
             self.count_dict[username][key] += 1
             self.addToPersistent(username, key)
             return self.lru_dict[username][key]
+
+    def showGallery(self,username):
+        res = []
+
+        for key, val in self.lru_dict[username].items():
+            res.append((key,val))
+
+        for key, val in self.persistent_store[username].items():
+            res.append((key,val))
+
+        return res
