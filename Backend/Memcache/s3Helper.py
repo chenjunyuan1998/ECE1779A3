@@ -5,6 +5,8 @@ from Backend.Config import aws_config, bucket
 s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id=aws_config['aws_access_key_id'],
                   aws_secret_access_key=aws_config['aws_secret_access_key'])
 
+def get_size():
+    return
 
 def put_image_to_s3(request, key):
     """
@@ -20,8 +22,8 @@ def put_image_to_s3(request, key):
         image_size = sys.getsizeof(base64_image)
         response = {
             'image_key': key,
-            'image_url': key,
-            'image_size': key
+            'image_url': image_url,
+            'image_size': image_size
         }
         return response
     except:

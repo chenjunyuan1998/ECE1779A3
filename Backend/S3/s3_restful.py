@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from s3Helper import put_image_to_s3, get_image_from_s3
+from Backend.Memcache.s3Helper import put_image_to_s3
 
 image_routes = Blueprint("image_routes", __name__)
 
