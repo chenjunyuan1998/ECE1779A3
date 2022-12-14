@@ -5,37 +5,54 @@ from Backend.Config import aws_config, bucket
 s3 = boto3.client('s3', region_name='us-east-1', aws_access_key_id=aws_config['aws_access_key_id'],
                   aws_secret_access_key=aws_config['aws_secret_access_key'])
 
-def get_size():
-    return
 
-def put_image_to_s3(request, key):
+def get_size(value):
+    _, extension = os.path.splitext(value.filename)
+    base64_image = base64.b64encode(value.read())
+    image_size = sys.getsizeof(base64_image)
+    return image_size
+
+
+def put_image_to_s3(user, key, value):
     """
     Put image to s3 bucket.
     """
-    file = request.files['file']
-    _, extension = os.path.splitext(file.filename)
-    base64_image = base64.b64encode(file.read())
-    s3.put_object(Body=base64_image, Key=key, Bucket=bucket, ContentType='image')
+    _, extension = os.path.splitext(value.filename)
+    base64_image = base64.b64encode(value.read())
+    image_key = str(user) + "::" + str(key)
+    s3.put_object(Body=base64_image, Key=image_key, Bucket=bucket, ContentType='image')
     print("Saved image to s3 bucket.")
-    image_url = 'https://s3.amazonaws.com/' + bucket + '/' + key + extension
+    image_url = 'https://s3.amazonaws.com/' + bucket + '/' + image_key + extension
     image_size = sys.getsizeof(base64_image)
     response = {
-        'image_key': key,
         'image_url': image_url,
         'image_size': image_size
     }
     return response
 
 
-def get_image_from_s3(key):
+def get_image_from_s3(user, key):
     """
     Get image from s3 bucket.
     """
+    image_key = str(user) + "::" + str(key)
     with open('Temp.txt', 'wb') as file:
-        s3.download_fileobj(bucket, key, file)
+        s3.download_fileobj(bucket, image_key, file)
     with open('Temp.txt', 'rb') as file:
         base64_image = file.read().decode('utf-8')
     file.close()
     os.remove("Temp.txt")
-    print("Got image from s3 bucket: ", key)
+    print("Got image from s3 bucket: ", image_key)
     return base64_image
+
+
+def delete_image_from_s3(user, key):
+    """
+    Delete image from s3 bucket.
+    """
+    image_key = str(user) + "::" + str(key)
+
+    s3.delete_object(Key=image_key)
+    print("Deleted image from s3 bucket: ", image_key)
+
+    return True
