@@ -30,16 +30,16 @@ class Cache:
         if key not in self.persistent_key[username] and key not in self.persistent_key[username]:
             if key in self.lru_dict[username]:
                 self.lru_dict[username].move_to_end(key)
-                self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)[1]
+                self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)
 
             self.lru_dict[username][key] = key
-            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)[1]
+            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)
             while self.space_dict[username] > self.capacity_dict[username]:
                 if not self.lru_dict[username]:
                     return 0
                     # all space is allocated for presistent data, ask user to delete mannually
                 popped = self.lru_dict[username].popitem(last=False)
-                self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)[1]
+                self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)
 
             self.addToPersistent(username, key)
 
@@ -54,10 +54,10 @@ class Cache:
                         # all space is allocated for presistent data, ask user to delete mannually
                     popped = self.lru_dict[username].popitem(last=False)
                     del self.count_dict[username][popped[0]]
-                    self.space_dict[username] -= s3Helper.delete_image_from_s3(username,popped[0])[1]
+                    self.space_dict[username] -= s3Helper.delete_image_from_s3(username,popped[0])
 
             self.persistent_key[username].add(key)
-            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)[1]
+            self.space_dict[username] += s3Helper.put_image_to_s3(username, key, value)
 
         return 1
 
@@ -71,7 +71,7 @@ class Cache:
             self.persistent_key[username].add(key)
 
     def deleteFromPersistent(self, username, key):
-        self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)[1]
+        self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)
         self.persistent_key[username].remove(key)
         del self.count_dict[username][key]
 
@@ -81,7 +81,7 @@ class Cache:
 
         if key in self.lru_dict[username]:
             popped = self.lru_dict[username][key]
-            self.space_dict[username] -= sys.getsizeof(popped)
+            self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)
             del self.lru_dict[username][key]
         else:
             self.deleteFromPersistent(username, key)

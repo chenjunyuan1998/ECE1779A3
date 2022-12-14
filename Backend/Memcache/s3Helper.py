@@ -23,11 +23,7 @@ def put_image_to_s3(user, key, value):
     s3.put_object(Body=base64_image, Key=image_key, Bucket=bucket, ContentType='image')
     image_url = 'https://s3.amazonaws.com/' + bucket + '/' + image_key + extension
     image_size = sys.getsizeof(base64_image)
-    response = {
-        'image_url': image_url,
-        'image_size': image_size
-    }
-    return response
+    return image_size
 
 
 def get_image_from_s3(user, key):
