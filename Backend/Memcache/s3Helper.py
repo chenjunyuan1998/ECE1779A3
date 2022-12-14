@@ -37,7 +37,7 @@ def get_image_from_s3(user, key):
         base64_image = file.read().decode('utf-8')
     file.close()
     os.remove("Temp.txt")
-    print("Got image from s3 bucket: ", image_key)
+    # print("Got image from s3 bucket: ", image_key)
     return base64_image
 
 
@@ -45,9 +45,11 @@ def delete_image_from_s3(user, key):
     """
     Delete image from s3 bucket.
     """
+    image = get_image_from_s3(user, key)
+    image_size = sys.getsizeof(image)
+
     image_key = str(user) + "::" + str(key)
-
     s3.delete_object(Key=image_key)
-    print("Deleted image from s3 bucket: ", image_key)
+    # print("Deleted image from s3 bucket: ", image_key)
 
-    return True
+    return image_size
