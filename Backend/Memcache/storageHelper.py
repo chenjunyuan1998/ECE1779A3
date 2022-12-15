@@ -88,6 +88,12 @@ class storageInterface:
         return True
 
     def delete_user(self, username):
+        for key in self.persistent_key[username]:
+            s3Helper.delete_image_from_s3(username, key)
+
+        for key in self.lru_dict[username].keys():
+            s3Helper.delete_image_from_s3(username, key)
+
         del self.persistent_key[username]
         del self.lru_dict[username]
         del self.space_dict[username]
