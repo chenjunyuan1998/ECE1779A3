@@ -107,3 +107,13 @@ class Cache:
             self.count_dict[username][key] += 1
             self.addToPersistent(username, key)
             return s3Helper.get_image_from_s3(username,key)
+
+    def showGallery(self, username):
+        res = []
+        for key in self.lru_dict.keys():
+            res.append((key, s3Helper.get_image_from_s3(username, key)))
+
+        for key in self.persistent_key():
+            res.append((key, s3Helper.get_image_from_s3(username, key)))
+
+        return res
