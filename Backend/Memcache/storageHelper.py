@@ -5,7 +5,7 @@ from Backend.Memcache import s3Helper
 
 
 # key: username, value: set of persistent keys
-class Cache:
+class storageInterface:
     def __init__(self):
         self.persistent_key = defaultdict(set)
         self.lru_dict = defaultdict(OrderedDict)
