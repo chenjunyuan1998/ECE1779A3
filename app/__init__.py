@@ -17,16 +17,12 @@ def create_app():
 
     @login_manager.user_loader
     #load user from session, can not used for the first time login
-    def loader(user_id):
-        response = credential_table.query(
-            KeyConditionExpression=Key('username').eq(user_id))
-
-        if response["Count"] == 0:
-            return
-        user = User(username=response['Items'][0]["username"], password=response['Items'][0]["password"],
-                    image=response['Items'][0]["image"])
-        return user
-
+    def loader(username):
+        try:
+            #: Flask Peewee used here to return the user object
+            return User.get(User.username == username)
+        except User.DoesNotExist:
+            return None
 
 class User(UserMixin):
     def __init__(self, username, password, image):
@@ -36,15 +32,22 @@ class User(UserMixin):
 
 
 
-def get_user(username,password):
+def get_user(username):
     """
 
     :param username:
     :param password:
     :return: user object that include username, password, image list
 
-    to be complete
+    need to be check
     """
-    #get user from db
-    #user = User.query.filter_by().first()
+    response = credential_table.query(
+        KeyConditionExpression=Key('username').eq(username))
+
+    if response["Count"] == 0:
+        return
+    user = User(username=response['Items'][0]["username"], password=response['Items'][0]["password"],
+                image=response['Items'][0]["image"])
     return user
+
+
