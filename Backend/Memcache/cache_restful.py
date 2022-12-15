@@ -21,7 +21,7 @@ def get_response(input = False):
 @webapp.route('/put', methods = ['POST'])
 def put():
     req = request.get_json(force = True)
-    username, key, value = list(req.items())[0]
+    key, username, value = list(req.items())[0]
     cache_global.cache.put_key(username,key,value)
     return get_response(True)
 
