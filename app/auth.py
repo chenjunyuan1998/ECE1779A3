@@ -69,13 +69,16 @@ def logout():#done
 @webapp.route('/close_account',methods =['POST'])
 @login_required
 def close_account():#done
-    username = current_user.get_id()
+    username = current_user.username
+    password = current_user.password
     #username = request.form.get('username')
     req = {
         'username': username,
+        'password': password,
     }
-    resp = requests.post(cache_http + '/deleteUser', json=req)
-    if resp.json() == 'OK':
+    cache_resp = requests.post(cache_http + '/deleteUser', json=req)
+    account_resp = requests.post(account_http + '/closeAccount', json=req)
+    if cache_resp.json() == 'OK' and account_resp.json() == 'DELETED_USER':
         flash('Delete successfully !')
         return redirect(url_for('login'))
     else:

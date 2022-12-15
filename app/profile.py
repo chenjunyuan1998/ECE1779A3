@@ -21,7 +21,7 @@ def upload():#done
     if request.method == 'POST':
         key = request.form.get('key')
         new_image = request.files['file']
-        username = current_user.get_id()
+        username = current_user.username
         #username = request.form.get('username')
         req = {
             'key': key,
@@ -40,14 +40,15 @@ def upload():#done
 def config():#done
     if request.method == 'POST':
         capacity = request.form.get('capacity')
-        username = current_user.get_id()
+        username = current_user.username
        #username = request.form.get('username')
         req = {
             'capacity': capacity,
             'username': username,
         }
-        resp = requests.post(cache_http + '/setCap', json=req)
-        if resp.json() == 'OK':
+        cache_resp = requests.post(cache_http + '/setCap', json=req)
+        account_resp = requests.post(account_http + '/updateCapacity', json=req)
+        if cache_resp.json() == 'OK' and account_resp.json() == 'UPDATED_CAPACITY':
             return render_template('profile.html', status='Capacity Set')
         else:
             return render_template('profile.html', status='Fail to Set')
@@ -55,7 +56,7 @@ def config():#done
 @webapp.route('/view_all_image', methods=['GET', 'POST'])
 @login_required
 def view_all_image():#done
-     username = current_user.get_id()
+     username = current_user.username
      #username = request.form.get('username')
      req = {
          'username': username,
@@ -69,7 +70,7 @@ def view_all_image():#done
 @webapp.route('/delete_image', methods=['GET', 'POST'])
 @login_required
 def delete_image():#done
-     username = current_user.get_id()
+     username = current_user.username
      #username = request.form.get('username')
      key = request.form.get('key')
      req = {
