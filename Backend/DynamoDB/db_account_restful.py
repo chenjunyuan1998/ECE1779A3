@@ -1,14 +1,19 @@
 import json
 import boto3
+from flask import request
+from Backend.DynamoDB import webapp
+from Backend.Config import aws_config
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_key_id'],
+                          aws_secret_access_key=aws_config['aws_secret_access_key'])
 credential_table = dynamodb.Table('UserCredentialTable')
-image_table = dynamodb.Table('UserImageTable')
 
 
-def sign_in(event, context):
-    username = event['username']
-    password = event['password']
+@webapp.route('/signIn', methods=['POST'])
+def sign_in():
+    req_json = request.get_json(force=True)
+    username = req_json['username']
+    password = req_json['password']
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
@@ -30,9 +35,11 @@ def sign_in(event, context):
         }
 
 
-def sign_up(event, context):
-    username = event["username"]
-    password = event["password"]
+@webapp.route('/signUp', methods=['POST'])
+def sign_up():
+    req_json = request.get_json(force=True)
+    username = req_json["username"]
+    password = req_json["password"]
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
@@ -41,28 +48,30 @@ def sign_up(event, context):
             'body': json.dumps("ALREADY_EXISTS")
         }
     else:
-        credential_response = credential_table.put_item(
-            Item={
-                'username': username,
-                'password': password,
-                'capacity': 10
+        if username.isalnum():  # username can only contain alphabet letters and numbers
+            credential_response = credential_table.put_item(
+                Item={
+                    'username': username,
+                    'password': password,
+                    'capacity': 10
+                }
+            )
+            return {
+                'statusCode': 200,
+                'body': json.dumps("CREATED_USER")
             }
-        )
-
-        image_response = image_table.put_item(
-            Item={
-                'user': username
+        else:
+            return {
+                'statusCode': 200,
+                'body': json.dumps("INVALID_NAME")
             }
-        )
-        return {
-            'statusCode': 200,
-            'body': json.dumps("CREATED_USER")
-        }
 
 
-def close_account(event, context):
-    username = event["username"]
-    password = event["password"]
+@webapp.route('/closeAccount', methods=['POST'])
+def close_account():
+    req_json = request.get_json(force=True)
+    username = req_json["username"]
+    password = req_json["password"]
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:
@@ -71,11 +80,6 @@ def close_account(event, context):
             credential_response = credential_table.delete_item(
                 Item={
                     'username': username
-                }
-            )
-            image_response = image_table.delete_item(
-                Item={
-                    'user': username
                 }
             )
             return {
@@ -94,9 +98,11 @@ def close_account(event, context):
         }
 
 
-def update_capacity(event, context):
-    username = event['username']
-    capacity = event['capacity']
+@webapp.route('/updateCapacity', methods=['POST'])
+def update_capacity():
+    req_json = request.get_json(force=True)
+    username = req_json['username']
+    capacity = req_json['capacity']
 
     response = credential_table.get_item(Key={'username': username})
     if response['Item']:

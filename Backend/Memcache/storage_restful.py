@@ -1,4 +1,4 @@
-from Backend.Memcache import cache_global, webapp
+from Backend.Memcache import store_global, webapp
 
 from flask import request
 import json
@@ -21,8 +21,8 @@ def get_response(input = False):
 @webapp.route('/put', methods = ['POST'])
 def put():
     req = request.get_json(force = True)
-    username, key, value = list(req.items())[0]
-    cache_global.cache.put_key(username,key,value)
+    key, username, value = list(req.items())[0]
+    store_global.store.put_key(username, key, value)
     return get_response(True)
 
 @webapp.route('/get', methods = ['POST'])
@@ -30,7 +30,7 @@ def get():
     req = request.get_json(force=True)
     username = req["username"]
     key = req["key"]
-    response=cache_global.cache.get_key(username,key)
+    response=store_global.store.get_key(username, key)
     if not response:
         return "Unknown key"
     else:
@@ -42,7 +42,7 @@ def setCap():
     req = request.get_json(force=True)
     username = req['username']
     cap = req['capacity']
-    cache_global.cache.set_cap(username , cap)
+    store_global.store.set_cap(username, cap)
     return get_response(True)
 
 @webapp.route('/deleteValue', methods = ['POST'])
@@ -50,19 +50,19 @@ def deleteValue():
     req = request.get_json(force=True)
     username = req['username']
     key = req['key']
-    cache_global.cache.deleteValue(username, key)
+    store_global.store.deleteValue(username, key)
     return get_response(True)
 
 @webapp.route('/deleteUser', methods = ['POST'])
 def deleteUser():
     req = request.get_json(force=True)
     username = req['username']
-    cache_global.cache.delete_user(username)
+    store_global.store.delete_user(username)
     return get_response(True)
 
 @webapp.route('/showGallery', methods = ['POST'])
 def showGallery():
     req = request.get_json(force=True)
     username = req["username"]
-    response = cache_global.cache.showGallery(username)
+    response = store_global.store.showGallery(username)
     return response
