@@ -1,7 +1,7 @@
 import sys
 from collections import defaultdict
 from collections import OrderedDict
-from Backend.StorageInterface import s3Helper
+from Backend.Storage import s3Helper
 
 
 # key: username, value: set of persistent keys

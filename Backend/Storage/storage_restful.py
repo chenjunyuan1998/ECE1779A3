@@ -1,4 +1,4 @@
-from Backend.StorageInterface import store_global, webapp
+from Backend.Storage import store_global, webapp
 
 from flask import request
 import json
