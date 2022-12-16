@@ -14,6 +14,10 @@ def main(): #very first page
     return render_template('login.html')
 
 
+@webapp.route('/login_get', methods=['GET','POST'])
+def login_get():#done
+    return render_template('login.html')
+
 @webapp.route('/login', methods=['GET','POST'])
 def login():#done
 
@@ -60,6 +64,10 @@ def register():#done
         else:
             msg = 'You have create an account !'
             return render_template('register.html', msg=msg)
+
+@webapp.route('/register_get', methods=['GET','POST'])
+def register_get():#done
+    return render_template('register.html')
 
 
 @webapp.route('/logout',methods =['GET','POST'])
