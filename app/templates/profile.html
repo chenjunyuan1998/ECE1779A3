@@ -5,37 +5,39 @@
     <title>Options</title>
 </head>
 <body>
-        <h3>Welcome, {{username}}</h3>
+        <h3>Welcome, {{user}}</h3>
         <div class = "info">Capacity in used: {{space}}</div>
         <div class = "operations">
             <div class = "upload and config">
                 <div class="status">{{ status }}</div>
+
                     <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
                         <label>key:</label>
                         <input type="text" name="key" maxlength="10" required>
                         <label>value:</label>
                         <input type="file" class="custom-file-input" name="file" value="Select File" required>
-                        <input type="submit" value="upload" />
+                        <input type="submit" value="upload" /></br></br>
                     </form>
 
                     <form action="{{ url_for('config')}}"  enctype="multipart/form-data" method="post">
                         <label>Capacity </label>
-                        <input type="text" name="capacity" required><label>MB</label><br />
+                        <input type="text" name="capacity" required><label>MB</label>
                         <input type="submit" value="Set">
                     </form>
             </div>
             <form action="{{ url_for('view_all_image')}}" method="post">
-                <input type="submit" value="View All Image">
+                <input type="submit" value="View All Image"></br></br>
             </form>
+            <br>
             <form action="{{ url_for('logout')}}" method="post">
-                <input type="submit" value="Log out">
+                <input type="submit" value="Log out"></br></br>
             </form>
 
             <form action="{{ url_for('close_account')}}" method="post">
                 <div class="msg">{{ msg }}</div>
                 <label>Please enter password again to delete account:</label>
                 <input type="text" name="password" required>
-                <input type="submit" value="Delete Account">
+                <input type="submit" value="Delete Account"></br></br>
             </form>
         </div>
 </body>
