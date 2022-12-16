@@ -98,28 +98,28 @@ def close_account():
         }
 
 
-@webapp.route('/updateCapacity', methods=['POST'])
-def update_capacity():
-    req_json = request.get_json(force=True)
-    username = req_json['username']
-    capacity = req_json['capacity']
-
-    response = credential_table.get_item(Key={'username': username})
-    if response['Item']:
-        response = credential_table.update_item(
-            Key={'username': username},
-            UpdateExpression="SET capacity = :c",
-            ExpressionAttributeValues={
-                ':c': capacity,
-            },
-            ReturnValues="UPDATED_NEW"
-        )
-        return {
-            'statusCode': 200,
-            'body': json.dumps("UPDATED_CAPACITY")
-        }
-    else:
-        return {
-            'statusCode': 200,
-            'body': json.dumps("USER_NOT_FOUND")
-        }
+# @webapp.route('/updateCapacity', methods=['POST'])
+# def update_capacity():
+#     req_json = request.get_json(force=True)
+#     username = req_json['username']
+#     capacity = req_json['capacity']
+#
+#     response = credential_table.get_item(Key={'username': username})
+#     if response['Item']:
+#         response = credential_table.update_item(
+#             Key={'username': username},
+#             UpdateExpression="SET capacity = :c",
+#             ExpressionAttributeValues={
+#                 ':c': capacity,
+#             },
+#             ReturnValues="UPDATED_NEW"
+#         )
+#         return {
+#             'statusCode': 200,
+#             'body': json.dumps("UPDATED_CAPACITY")
+#         }
+#     else:
+#         return {
+#             'statusCode': 200,
+#             'body': json.dumps("USER_NOT_FOUND")
+#         }
