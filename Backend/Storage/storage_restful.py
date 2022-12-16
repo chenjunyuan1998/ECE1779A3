@@ -79,8 +79,7 @@ def showGallery():
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
-    store_global.store.showSpaceAllocated(username)
-    return get_response(True)
+    return store_global.store.showSpaceAllocated(username)
 
 @webapp.route('/addUser', methods = ['POST'])
 def addUser():
