@@ -73,7 +73,7 @@ def register_get():#done
 
 @webapp.route('/logout',methods =['GET','POST'])
 def logout():#done
-    return redirect(url_for('/login_get'))
+    return redirect(url_for('login_get'))
 
 @webapp.route('/close_account',methods =['GET','POST'])
 #@login_required
