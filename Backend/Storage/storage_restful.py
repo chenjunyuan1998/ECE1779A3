@@ -1,6 +1,5 @@
 from Backend.Storage import store_global, webapp, storageHelper
 from Backend.Storage import webapp
-from Backend.Storage.store_global import store
 
 from flask import request
 import json
@@ -25,7 +24,7 @@ def get_response(input=False):
 def put():
     req = request.get_json(force=True)
     key, username, value = list(req.items())[0]
-    store.put_key(username, key, value)
+    store_global.store.put_key(username, key, value)
     return get_response(True)
 
 
@@ -34,7 +33,7 @@ def get():
     req = request.get_json(force=True)
     username = req["username"]
     key = req["key"]
-    response = store.get_key(username, key)
+    response = store_global.store.get_key(username, key)
     if not response:
         return "Unknown key"
     else:
@@ -47,7 +46,7 @@ def setCap():
     req = request.get_json(force=True)
     username = req['username']
     cap = req['capacity']
-    store.set_cap(username, cap)
+    store_global.store.set_cap(username, cap)
     return get_response(True)
 
 
@@ -56,7 +55,7 @@ def deleteValue():
     req = request.get_json(force=True)
     username = req['username']
     key = req['key']
-    response = store.deleteValue(username, key)
+    response = store_global.store.deleteValue(username, key)
     return response
 
 
@@ -64,7 +63,7 @@ def deleteValue():
 def deleteUser():
     req = request.get_json(force=True)
     username = req['username']
-    store.delete_user(username)
+    store_global.store.delete_user(username)
     return get_response(True)
 
 
@@ -72,7 +71,7 @@ def deleteUser():
 def showGallery():
     req = request.get_json(force=True)
     username = req["username"]
-    store.showGallery(username)
+    store_global.store.showGallery(username)
     return get_response(True)
 
 
@@ -80,14 +79,14 @@ def showGallery():
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
-    return store.showSpaceAllocated(username)
+    return store_global.store.showSpaceAllocated(username)
 
 
 @webapp.route('/addUser', methods=['POST'])
 def addUser():
     req = request.get_json(force=True)
     username = req["username"]
-    store.showSpaceAllocated(username)
+    store_global.store.showSpaceAllocated(username)
     return get_response(True)
 
 def startup_app():
