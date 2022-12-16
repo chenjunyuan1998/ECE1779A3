@@ -30,6 +30,7 @@ def login():#done
             'password': password,
         }
         resp = requests.post(account_http + '/signIn', json=req)
+        print(resp.json())
         if resp.json() == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
             resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
