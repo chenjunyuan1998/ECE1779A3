@@ -16,6 +16,7 @@ def sign_in():
     password = req_json['password']
 
     response = credential_table.get_item(Key={'username': username})
+    print(response)
     if response['Item']:
         recorded_password = response['Item']['password']
         if password == recorded_password:
@@ -42,6 +43,7 @@ def sign_up():
     password = req_json["password"]
 
     response = credential_table.get_item(Key={'username': username})
+    print(response)
     if response['Item']:
         return {
             'statusCode': 200,
@@ -74,6 +76,7 @@ def close_account():
     password = req_json["password"]
 
     response = credential_table.get_item(Key={'username': username})
+    print(response)
     if response['Item']:
         recorded_password = response['Item']['password']
         if password == recorded_password:
