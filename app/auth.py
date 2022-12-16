@@ -30,14 +30,13 @@ def login():#done
             'password': password,
         }
         resp = requests.post(account_http + '/signIn', json=req)
-        print("resp.json(): ", resp.json())
-        if resp.json() == 'CORRECT_PWD':
+        if resp.json()['body'] == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
             resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
             resp1 = make_response(render_template('profile.html',user=username, space= resp_space))
             resp1.set_cookie('username', username)
             return resp1
-        elif resp.json() == 'INCORRECT_PWD':
+        elif resp.json()['body'] == 'INCORRECT_PWD':
             msg = 'Incorrect password !'
             return render_template('login.html', msg=msg)
         else:
@@ -56,11 +55,10 @@ def register():#done
             'password': password,
         }
         resp = requests.post(account_http + '/signUp', json=req)
-        print("resp.json(): ", resp.json())
-        if resp.json() == 'ALREADY_EXISTS':
+        if resp.json()['body'] == 'ALREADY_EXISTS':
             msg = 'Account already exists !'
             return render_template('register.html', msg=msg)
-        elif resp.json() == 'INVALID_NAME':
+        elif resp.json()['body'] == 'INVALID_NAME':
             msg = 'Invalid Username !'
             return render_template('register.html', msg=msg)
         else:
@@ -74,7 +72,7 @@ def register_get():#done
 
 @webapp.route('/logout',methods =['GET','POST'])
 def logout():#done
-    return redirect(url_for('login'))
+    return redirect(url_for('/login_get'))
 
 @webapp.route('/close_account',methods =['GET','POST'])
 #@login_required
@@ -87,7 +85,7 @@ def close_account():#done
     }
     cache_resp = requests.post(cache_http + '/deleteUser', json=req)
     account_resp = requests.post(account_http + '/closeAccount', json=req)
-    if cache_resp.json() == 'OK' and account_resp.json() == 'DELETED_USER':
+    if cache_resp.json() == 'OK' and account_resp.json()['body'] == 'DELETED_USER':
         flash('Delete successfully !')
         return redirect(url_for('login'))
     else:
