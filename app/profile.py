@@ -20,12 +20,14 @@ def upload():#done
         key = request.form.get('key')
         new_image = request.files['file']
         username = request.cookies.get('username')
+        print('username：',username)
         req = {
             'key': key,
             'username': username,
             'value': new_image,
         }
         resp = requests.post(cache_http + '/put', json=req)
+        print('cache_resp:', resp)
         if resp.json() == 'OK':
             resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
             return render_template('profile.html', status='Uploaded',user=username,space= resp_space)
@@ -40,11 +42,13 @@ def config():#done
     if request.method == 'POST':
         capacity = request.form.get('capacity')
         username = request.cookies.get('username')
+        print('username：', username)
         req = {
             'capacity': capacity,
             'username': username,
         }
         cache_resp = requests.post(cache_http + '/setCap', json=req)
+        print('cache_resp:',cache_resp)
         #account_resp = requests.post(account_http + '/updateCapacity', json=req)
         if cache_resp.json() == 'OK' :
             resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
@@ -57,10 +61,12 @@ def config():#done
 #@login_required
 def view_all_image():#done
      username = request.cookies.get('username')
+     print('username：', username)
      req = {
          'username': username,
      }
      resp = requests.post(cache_http + '/showGallery', json=req)
+     print('iamge_resp:', resp)
      if resp:
          resp1 = make_response(render_template('view.html', items=resp))
          resp1.set_cookie('username', username)
@@ -72,12 +78,14 @@ def view_all_image():#done
 #@login_required
 def delete_image():#done
      username = request.cookies.get('username')
+     print('username：', username)
      key = request.form.get('key')
      req = {
          'username': username,
          'key': key,
      }
      resp = requests.post(cache_http + '/deleteValue', json=req)
+     print('cache_resp:', resp)
      if resp.json() == 'OK':
         return redirect('/view_all_image')
      else:
