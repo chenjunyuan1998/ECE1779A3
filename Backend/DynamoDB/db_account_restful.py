@@ -53,7 +53,7 @@ def sign_up():
                 Item={
                     'username': username,
                     'password': password,
-                    'capacity': 10
+                    # 'capacity': 10
                 }
             )
             return {
