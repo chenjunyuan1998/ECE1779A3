@@ -25,19 +25,19 @@ def sign_in():
             #     'statusCode': 200,
             #     'body': json.dumps("CORRECT_PWD")
             # }
-            return "CORRECT_PWD"
+            return json.dumps("CORRECT_PWD")
         else:
             # return {
             #     'statusCode': 200,
             #     'body': json.dumps("INCORRECT_PWD")
             # }
-            return "INCORRECT_PWD"
+            return json.dumps("INCORRECT_PWD")
     else:
         # return {
         #     'statusCode': 200,
         #     'body': json.dumps("INVALID_USER")
         # }
-        return "INVALID_USER"
+        return json.dumps("INVALID_USER")
 
 
 @webapp.route('/signUp', methods=['POST'])
@@ -53,7 +53,7 @@ def sign_up():
         #     'statusCode': 200,
         #     'body': json.dumps("ALREADY_EXISTS")
         # }
-        return "ALREADY_EXISTS"
+        return json.dumps("ALREADY_EXISTS")
     else:
         print("username.isalnum(): ", username.isalnum())
         if username.isalnum():  # username can only contain alphabet letters and numbers
@@ -67,13 +67,13 @@ def sign_up():
             #     'statusCode': 200,
             #     'body': json.dumps("CREATED_USER")
             # }
-            return "CREATED_USER"
+            return json.dumps("CREATED_USER")
         else:
             # return {
             #     'statusCode': 200,
             #     'body': json.dumps("INVALID_NAME")
             # }
-            return "INVALID_NAME"
+            return json.dumps("INVALID_NAME")
 
 
 @webapp.route('/closeAccount', methods=['POST'])
@@ -96,15 +96,15 @@ def close_account():
             #     'statusCode': 200,
             #     'body': json.dumps("DELETED_USER")
             # }
-            return "DELETED_USER"
+            return json.dumps("DELETED_USER")
         else:
             # return {
             #     'statusCode': 200,
             #     'body': json.dumps("DELETE_FAILED")
             # }
-            return "DELETE_FAILED"
+            return json.dumps("DELETE_FAILED")
     else:
-        return "USER_NOT_FOUND"
+        return json.dumps("USER_NOT_FOUND")
         # return {
         #     'statusCode': 200,
         #     'body': json.dumps("USER_NOT_FOUND")
