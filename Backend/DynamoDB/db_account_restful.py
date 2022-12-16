@@ -19,6 +19,7 @@ def sign_in():
     print(response)
     if 'Item' in response:
         recorded_password = response['Item']['password']
+        print("password: ", password, ", recorded_password: ", recorded_password)
         if password == recorded_password:
             return {
                 'statusCode': 200,
@@ -50,6 +51,7 @@ def sign_up():
             'body': json.dumps("ALREADY_EXISTS")
         }
     else:
+        print("username.isalnum(): ", username.isalnum())
         if username.isalnum():  # username can only contain alphabet letters and numbers
             credential_response = credential_table.put_item(
                 Item={
