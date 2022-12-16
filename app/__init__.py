@@ -5,5 +5,6 @@ from flask import Flask
 
 webapp = Flask(__name__)
 
-from app import *
+from app import auth
+from app import profile
 
