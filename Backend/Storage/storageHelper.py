@@ -119,7 +119,7 @@ class storageInterface:
         for key in self.lru_dict.keys():
             res.append((key, s3Helper.get_image_from_s3(username, key)))
 
-        for key in self.persistent_key():
+        for key in self.persistent_key.keys():
             res.append((key, s3Helper.get_image_from_s3(username, key)))
 
         return res

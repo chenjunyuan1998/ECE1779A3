@@ -87,6 +87,5 @@ def showGallery():
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
-    store_global.store.showSpaceAllocated(username)
-    return get_response(True)
-
+    response = store_global.store.showSpaceAllocated(username)
+    return response
