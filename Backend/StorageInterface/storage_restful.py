@@ -1,4 +1,4 @@
-from Backend.Memcache import store_global, webapp
+from Backend.StorageInterface import store_global, webapp
 
 from flask import request
 import json

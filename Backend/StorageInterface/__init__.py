@@ -1,6 +1,6 @@
 from flask import Flask
 
-from Backend.Memcache.storageHelper import storageInterface
+from Backend.StorageInterface.storageHelper import storageInterface
 
 webapp = Flask(__name__)
 store = storageInterface()
