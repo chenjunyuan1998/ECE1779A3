@@ -10,7 +10,7 @@ account_http= 'http://localhost:5001'
 
 @webapp.route('/')
 def main(): #very first page
-    return 'Hello World'
+    return "OK"
 
 
 @webapp.route('/login', methods=['GET','POST'])
