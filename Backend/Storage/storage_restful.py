@@ -54,8 +54,8 @@ def deleteValue():
     req = request.get_json(force=True)
     username = req['username']
     key = req['key']
-    store_global.store.deleteValue(username, key)
-    return get_response(True)
+    response = store_global.store.deleteValue(username, key)
+    return response
 
 
 @webapp.route('/deleteUser', methods=['POST'])
@@ -73,14 +73,6 @@ def showGallery():
     store_global.store.showGallery(username)
     return get_response(True)
 
-
-# @webapp.route('/setCapacity', methods=['POST'])
-# def setCapacity():
-#     req = request.get_json(force=True)
-#     username = req["username"]
-#     capacity = req["capacity"]
-#     store_global.store.set_cap(username, capacity)
-#     return get_response(True)
 
 
 @webapp.route('/showSpaceUsed', methods=['POST'])
