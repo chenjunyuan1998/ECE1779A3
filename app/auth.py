@@ -1,14 +1,12 @@
 import profile
 
 import requests
-from apscheduler.schedulers.background import BackgroundScheduler
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash, make_response
 from app import webapp
-from flask_login import login_user, logout_user, login_required, current_user
 from flask import json
 
-cache_http = 'http://localhost:5001'
-account_http= 'http://localhost:5002'
+cache_http = 'http://localhost:5002'
+account_http= 'http://localhost:5001'
 
 @webapp.route('/')
 def main(): #very first page
@@ -20,7 +18,7 @@ def login():#done
 
         username = request.form.get('username')
         password =  request.form.get('password')
-        remember = True if request.form.get('remember') else False
+        #remember = True if request.form.get('remember') else False
 
         req = {
             'username': username,
@@ -29,9 +27,10 @@ def login():#done
         resp = requests.post(account_http + '/signIn', json=req)
         if resp.json() == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
-            user = get_user(username)
-            login_user(user, remember=remember)
-            return redirect(url_for('profile.profile'))
+            resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+            resp1 = make_response(render_template('profile.html',user=username, space= resp_space))
+            resp1.set_cookie('username', username)
+            return resp1
         elif resp.json() == 'INCORRECT_PWD':
             msg = 'Incorrect password !'
             return render_template('login.html', msg=msg)
@@ -67,11 +66,10 @@ def logout():#done
     return redirect(url_for('login'))
 
 @webapp.route('/close_account',methods =['POST'])
-@login_required
+#@login_required
 def close_account():#done
-    username = current_user.username
-    password = current_user.password
-    #username = request.form.get('username')
+    username = request.cookies.get('username')
+    password = request.form.get('password')
     req = {
         'username': username,
         'password': password,
@@ -83,4 +81,5 @@ def close_account():#done
         return redirect(url_for('login'))
     else:
         msg = 'Fail to delete!'
-        return render_template('profile.html', msg=msg)
+        resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+        return render_template('profile.html', msg=msg, user=username,space=resp_space)
