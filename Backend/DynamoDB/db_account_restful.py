@@ -1,4 +1,4 @@
-import json
+import json, requests
 import boto3
 from flask import request
 from Backend.DynamoDB import webapp
@@ -7,6 +7,8 @@ from Backend.Config import aws_config
 dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_key_id'],
                           aws_secret_access_key=aws_config['aws_secret_access_key'])
 credential_table = dynamodb.Table('UserCredentialTable')
+
+storage_http = 'http://localhost:5002'
 
 
 @webapp.route('/signIn', methods=['POST'])
@@ -21,22 +23,10 @@ def sign_in():
         recorded_password = response['Item']['password']
         print("password: ", password, ", recorded_password: ", recorded_password)
         if password == recorded_password:
-            # return {
-            #     'statusCode': 200,
-            #     'body': json.dumps("CORRECT_PWD")
-            # }
             return json.dumps("CORRECT_PWD")
         else:
-            # return {
-            #     'statusCode': 200,
-            #     'body': json.dumps("INCORRECT_PWD")
-            # }
             return json.dumps("INCORRECT_PWD")
     else:
-        # return {
-        #     'statusCode': 200,
-        #     'body': json.dumps("INVALID_USER")
-        # }
         return json.dumps("INVALID_USER")
 
 
@@ -49,30 +39,22 @@ def sign_up():
     response = credential_table.get_item(Key={'username': username})
     print(response)
     if 'Item' in response:
-        # return {
-        #     'statusCode': 200,
-        #     'body': json.dumps("ALREADY_EXISTS")
-        # }
         return json.dumps("ALREADY_EXISTS")
     else:
         print("username.isalnum(): ", username.isalnum())
         if username.isalnum():  # username can only contain alphabet letters and numbers
+            req = {
+                'username': username
+            }
+            adduser_response = requests.post(storage_http + '/addUser', json=req)
             credential_response = credential_table.put_item(
                 Item={
                     'username': username,
                     'password': password
                 }
             )
-            # return {
-            #     'statusCode': 200,
-            #     'body': json.dumps("CREATED_USER")
-            # }
             return json.dumps("CREATED_USER")
         else:
-            # return {
-            #     'statusCode': 200,
-            #     'body': json.dumps("INVALID_NAME")
-            # }
             return json.dumps("INVALID_NAME")
 
 
@@ -87,28 +69,12 @@ def close_account():
     if 'Item' in response:
         recorded_password = response['Item']['password']
         if password == recorded_password:
-            credential_response = credential_table.delete_item(
-                Item={
-                    'username': username
-                }
-            )
-            # return {
-            #     'statusCode': 200,
-            #     'body': json.dumps("DELETED_USER")
-            # }
+            credential_response = credential_table.delete_item(Key={'username': username})
             return json.dumps("DELETED_USER")
         else:
-            # return {
-            #     'statusCode': 200,
-            #     'body': json.dumps("DELETE_FAILED")
-            # }
             return json.dumps("DELETE_FAILED")
     else:
         return json.dumps("USER_NOT_FOUND")
-        # return {
-        #     'statusCode': 200,
-        #     'body': json.dumps("USER_NOT_FOUND")
-        # }
 
 
 # @webapp.route('/updateCapacity', methods=['POST'])
