@@ -17,7 +17,7 @@ def sign_in():
 
     response = credential_table.get_item(Key={'username': username})
     print(response)
-    if response['Item']:
+    if 'Item' in response:
         recorded_password = response['Item']['password']
         if password == recorded_password:
             return {
@@ -44,7 +44,7 @@ def sign_up():
 
     response = credential_table.get_item(Key={'username': username})
     print(response)
-    if response['Item']:
+    if 'Item' in response:
         return {
             'statusCode': 200,
             'body': json.dumps("ALREADY_EXISTS")
@@ -54,8 +54,7 @@ def sign_up():
             credential_response = credential_table.put_item(
                 Item={
                     'username': username,
-                    'password': password,
-                    # 'capacity': 10
+                    'password': password
                 }
             )
             return {
@@ -77,7 +76,7 @@ def close_account():
 
     response = credential_table.get_item(Key={'username': username})
     print(response)
-    if response['Item']:
+    if 'Item' in response:
         recorded_password = response['Item']['password']
         if password == recorded_password:
             credential_response = credential_table.delete_item(
