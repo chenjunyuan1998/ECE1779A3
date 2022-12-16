@@ -123,3 +123,9 @@ class storageInterface:
             res.append((key, s3Helper.get_image_from_s3(username, key)))
 
         return res
+
+    def updateCapacity(self,username,cap):
+        self.capacity_dict[username] = cap
+
+    def showSpaceAllocated(self, username):
+        return self.space_dict[username] / (1024 ** 2)

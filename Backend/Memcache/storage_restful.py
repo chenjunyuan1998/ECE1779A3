@@ -66,3 +66,18 @@ def showGallery():
     username = req["username"]
     response = store_global.store.showGallery(username)
     return response
+
+@webapp.route('/setCapacity', method = ['POST'])
+def setCapacity():
+    req = request.get_json(force = True)
+    username = req["username"]
+    store_global.store.set_cap(username)
+    return get_response(True)
+
+@webapp.route('/showSpaceUsed', method = ['POST'])
+def showSpaceUsed():
+    req = request.get_json(force = True)
+    username = req["username"]
+    store_global.store.showSpaceAllocated(username)
+    return get_response(True)
+
