@@ -57,7 +57,7 @@ def register():#done
             'password': password,
         }
         account_resp = requests.post(account_http + '/signUp', json=req)
-        cache_resp = requests.post(account_http + '/addUser', json=req)
+        cache_resp = requests.post(cache_http + '/addUser', json=req)
         if account_resp.json() == 'ALREADY_EXISTS':
             msg = 'Account already exists !'
             return render_template('register.html', msg=msg)
