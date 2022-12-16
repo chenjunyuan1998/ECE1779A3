@@ -129,3 +129,7 @@ class storageInterface:
 
     def showSpaceAllocated(self, username):
         return self.space_dict[username] / (1024 ** 2)
+
+    def addUser(self, username):
+        self.capacity_dict[username] = self.set_cap(username, 10)
+        self.space_dict[username] = 0

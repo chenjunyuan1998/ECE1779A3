@@ -70,8 +70,8 @@ def deleteUser():
 def showGallery():
     req = request.get_json(force=True)
     username = req["username"]
-    response = store_global.store.showGallery(username)
-    return response
+    store_global.store.showGallery(username)
+    return get_response(True)
 
 
 # @webapp.route('/setCapacity', methods=['POST'])
@@ -87,5 +87,12 @@ def showGallery():
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
-    response = store_global.store.showSpaceAllocated(username)
-    return response
+    store_global.store.showSpaceAllocated(username)
+    return get_response(True)
+
+@webapp.route('/addUser', methods = ['POST'])
+def addUser():
+    req = request.get_json(force=True)
+    username = req["username"]
+    store_global.store.showSpaceAllocated(username)
+    return get_response(True)
