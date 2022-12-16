@@ -6,7 +6,7 @@ import os
 cache_http = 'http://localhost:5002'
 account_http= 'http://localhost:5001'
 
-@webapp.route('/profile', methods=['GET'])
+@webapp.route('/profile', methods=['GET','POST'])
 #@login_required
 def profile():
 
