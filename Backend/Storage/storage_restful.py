@@ -74,7 +74,7 @@ def showGallery():
     return response
 
 
-# @webapp.route('/setCapacity', method=['POST'])
+# @webapp.route('/setCapacity', methods=['POST'])
 # def setCapacity():
 #     req = request.get_json(force=True)
 #     username = req["username"]
@@ -83,7 +83,7 @@ def showGallery():
 #     return get_response(True)
 
 
-@webapp.route('/showSpaceUsed', method=['POST'])
+@webapp.route('/showSpaceUsed', methods=['POST'])
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
