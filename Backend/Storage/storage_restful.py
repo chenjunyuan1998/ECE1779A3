@@ -1,4 +1,4 @@
-from Backend.Storage import store_global, webapp
+from Backend.Storage import store_global, webapp, storageHelper
 
 from flask import request
 import json
@@ -87,3 +87,8 @@ def addUser():
     username = req["username"]
     store_global.store.showSpaceAllocated(username)
     return get_response(True)
+
+def startup_app():
+    store_global.store = storageHelper.storageInterface()
+
+startup_app()
