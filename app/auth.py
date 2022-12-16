@@ -1,12 +1,14 @@
+import profile
+
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import render_template, url_for, request, redirect, flash
 from app import webapp
-from flask_login import login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user
 from flask import json
 
-from app.profile import cache_http
-
+cache_http = 'http://localhost:5001'
+account_http= 'http://localhost:5002'
 
 @webapp.route('/')
 def main(): #very first page
@@ -14,35 +16,49 @@ def main(): #very first page
 
 
 @webapp.route('/login', methods=['POST'])
-def login():
+def login():#done
 
         username = request.form.get('username')
         password =  request.form.get('password')
         remember = True if request.form.get('remember') else False
 
-        if CORRECT_PWD:
+        req = {
+            'username': username,
+            'password': password,
+        }
+        resp = requests.post(account_http + '/signIn', json=req)
+        if resp.json() == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
-            user = 'username'
+            user = get_user(username)
             login_user(user, remember=remember)
-            #get user info
-            return render_template('profile.html', msg=msg, user=user)
+            return redirect(url_for('profile.profile'))
+        elif resp.json() == 'INCORRECT_PWD':
+            msg = 'Incorrect password !'
+            return render_template('login.html', msg=msg)
         else:
-            msg = 'Incorrect username / password !'
+            msg = 'Invalid user!'
             return render_template('login.html', msg=msg)
 
 
 
 @webapp.route('/register',methods =['POST'])
-def register():
-        msg = ''
+def register():#done
+
         username = request.form.get('username')
         password = request.form.get('password')
-
-        if ALREADY_EXISTS:
+        req = {
+            'username': username,
+            'password': password,
+        }
+        resp = requests.post(account_http + '/signUp', json=req)
+        if resp.json() == 'ALREADY_EXISTS':
             msg = 'Account already exists !'
             return render_template('register.html', msg=msg)
+        elif resp.json() == 'INVALID_NAME':
+            msg = 'Invalid Username !'
+            return render_template('register.html', msg=msg)
         else:
-            msg = 'You have successfully registered !'
+            msg = 'You have create an account !'
             return render_template('register.html', msg=msg)
 
 
@@ -51,13 +67,18 @@ def logout():#done
     return redirect(url_for('login'))
 
 @webapp.route('/close_account',methods =['POST'])
+@login_required
 def close_account():#done
-    username = request.form.get('username')
+    username = current_user.username
+    password = current_user.password
+    #username = request.form.get('username')
     req = {
         'username': username,
+        'password': password,
     }
-    resp = requests.post(cache_http + '/deleteUser', json=req)
-    if resp.json() == 'OK':
+    cache_resp = requests.post(cache_http + '/deleteUser', json=req)
+    account_resp = requests.post(account_http + '/closeAccount', json=req)
+    if cache_resp.json() == 'OK' and account_resp.json() == 'DELETED_USER':
         flash('Delete successfully !')
         return redirect(url_for('login'))
     else:
