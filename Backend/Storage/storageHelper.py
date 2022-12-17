@@ -134,3 +134,8 @@ class storageInterface:
     def addUser(self, username):
         self.set_cap(username, 10)
         self.space_dict[username] = 0
+        self.count_dict[username] = {}
+        self.persistent_key[username] = set()
+        self.lru_dict[username] = OrderedDict()
+
+
