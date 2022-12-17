@@ -8,7 +8,6 @@
 <table id="table">
 
 </table>
-<p>{{items}}</p>
 <!--{% if (items is defined) and items %}-->
 <!--  <h2>Current Stored Image</h2>-->
 <!--<table class = "Image table">-->
@@ -44,8 +43,8 @@
 
 <!--{% endif %}-->
 <!--<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>-->
-<script>
-    var data = {{items}}
+<script type = "text/javascript">
+    var data = [['0','fcdsfsg'],['100','dsfsfdsgfg']]
     function createTable(array) {
 
     var table = document.createElement('table');
@@ -71,11 +70,12 @@
         for (const [key, value] of Object.entries(array[i])) {
             var cell = document.createElement('td');
             console.log("key : " + key);
-            var src = "data:image/png;base64,";
-            src += value;
-            var image = new Image();
-            image.src = src
-            row.appendChild(image);
+            cell.textContent = value
+            // var src = "data:image/png;base64,";
+            // src += value;
+            // var image = new Image();
+            // image.src = src
+            row.appendChild(cell);
         }
         tbody.appendChild(row);
     }
@@ -83,8 +83,8 @@
 
     return table;
 }
-var result = createTable(data)
-document.getElementById("table").appendChild(result)
+var table = createTable(data)
+document.getElementById("table").appendChild(table)
 </script>
 </body>
 </html>
