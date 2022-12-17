@@ -74,6 +74,7 @@ def view_all_image():#done
     }
     resp = requests.get(cache_http + '/showGallery', json=req).text
     print('image_resp:', resp)
+    print(type(resp))
     if resp:
         resp1 = make_response(render_template('view.html', items=resp))
         resp1.set_cookie('username', username)
