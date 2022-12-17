@@ -1,7 +1,7 @@
 import json, requests
 import boto3
 from flask import request
-from Backend.DynamoDB import webapp
+from Backend.DynamoDB.main import webapp
 from Backend.Config import aws_config
 
 dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_key_id'],
