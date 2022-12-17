@@ -10,13 +10,13 @@ def get_response(input=False):
         response = webapp.response_class(
             response=json.dumps('OK'),
             status=200,
-            mimetypes='application/json'
+            mimetype='application/json'
         )
     else:
         response = webapp.response_class(
             response=json.dumps('Bad Request'),
             status=400,
-            mimetypes='application/json'
+            mimetype='application/json'
         )
 
 
