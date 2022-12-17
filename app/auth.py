@@ -35,8 +35,9 @@ def login():#done
         if resp.json() == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            print('resp_space:', resp_space)
-            resp1 = make_response(render_template('profile.html', user=username, space=resp_space))
+            print('resp_space auth:', resp_space)
+            print('resp_space.json() auth:', resp_space.json())
+            resp1 = make_response(render_template('profile.html', user=username, space=resp_space.json()))
             resp1.set_cookie('username', username)
             return resp1
         elif resp.json() == 'INCORRECT_PWD':

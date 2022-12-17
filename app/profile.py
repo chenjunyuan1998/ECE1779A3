@@ -58,11 +58,11 @@ def config():#done
         #account_resp = requests.post(account_http + '/updateCapacity', json=req)
         if cache_resp.json() == 'OK':
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            print('resp_space: ', resp_space)
-            return render_template('profile.html', status='Capacity Set', user=username, space=resp_space)
+            print('resp_space.json() profile: ', resp_space.json())
+            return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
         else:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Fail to Set', user=username, space=resp_space)
+            return render_template('profile.html', status='Fail to Set', user=username, space=resp_space.json())
 
 
 @webapp.route('/view_all_image', methods=['GET', 'POST'])
