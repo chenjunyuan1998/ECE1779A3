@@ -18,26 +18,25 @@
                         <input type="file" class="custom-file-input" name="file" value="Select File" required>
                         <input type="submit" class="btn" value="upload" /></br></br>
                     </form>
-                    </br></br></br></br></br></br>
+                    </br></br></br>
                     <form action="{{ url_for('config')}}"  enctype="multipart/form-data" method="post">
                         <label>Capacity </label>
                         <input type="text" name="capacity" required><label>MB</label>
                         <input type="submit" class="btn" value="Set"></br></br>
                     </form>
-                   </br></br></br></br></br></br>
+                   </br></br></br></br>
             </div>
             <div class="view_keys">
             <form action="{{ url_for('view_all_image')}}" method="post">
                 <input type="submit" class="btn" value="View All Image"></br></br>
             </form>
              </div>
-            </br></br></br></br>
+            </br></br>
             <div class="logout">
             <form action="{{ url_for('logout')}}" method="post">
                 <input type="submit" class="btn" value="Log out"></br></br>
             </form>
             </div>
-            </br></br></br></br>
             <div class="close_account">
             <form action="{{ url_for('close_account')}}" method="post">
                 <div class="msg">{{ msg }}</div>
