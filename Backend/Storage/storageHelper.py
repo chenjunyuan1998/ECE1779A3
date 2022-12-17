@@ -139,4 +139,12 @@ class storageInterface:
         self.persistent_key[username] = set()
         self.lru_dict[username] = OrderedDict()
 
+    def keyList(self, username):
+        res = []
+        for key in self.lru_dict[username].keys():
+            res.append(key)
 
+        for key in self.persistent_key[username]:
+            res.append(key)
+
+        return res

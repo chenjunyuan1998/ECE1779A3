@@ -77,6 +77,12 @@ def addUser():
     store_global.store.addUser(username)
     return json.dumps('OK')
 
+@webapp.route('/showKeys', methods=['GET'])
+def showKeys():
+    req = request.get_json(force=True)
+    username = req["username"]
+    return json.dumps(store_global.store.keyList(username))
+
 def startup_app():
     store_global.store = storageHelper.storageInterface()
 
