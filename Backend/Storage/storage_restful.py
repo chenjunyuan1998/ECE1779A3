@@ -26,8 +26,7 @@ def put():
     key = req['key']
     username = req['username']
     value = req['value']
-    store_global.store.put_key(username, key,value)
-    return get_response(True)
+    return store_global.store.put_key(username, key,value)
 
 
 @webapp.route('/get', methods=['POST'])
