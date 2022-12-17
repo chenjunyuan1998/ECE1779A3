@@ -10,8 +10,8 @@ import os
 # cache_http = 'http://localhost:5002'
 # account_http = 'http://localhost:5001'
 
-cache_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
-account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
+cache_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage:5002'
+account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db:5001'
 
 
 @webapp.route('/profile', methods=['GET', 'POST'])
