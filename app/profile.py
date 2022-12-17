@@ -1,6 +1,7 @@
 import requests
 from flask import render_template, url_for, request, flash, redirect, make_response
 from app import webapp
+import base64
 from flask import json
 import os
 cache_http = 'http://localhost:5002'
@@ -20,11 +21,12 @@ def upload():#done
         key = request.form.get('key')
         new_image = request.files['file']
         username = request.cookies.get('username')
+        base64_image = base64.b64encode(new_image.read())
         print('username：',username)
         req = {
             'key': key,
             'username': username,
-            'value': new_image,
+            'value': base64_image,
         }
         resp = requests.post(cache_http + '/put', json=req)
         print('cache_resp:', resp)
