@@ -8,9 +8,15 @@
 <div class="msg">{{ msg }}</div>
 {% if (items is defined) and items %}
   <h3>Current Stored Image Keys</h3>
-<link rel="stylesheet" href='/static/core-style.css' />
+<link rel="stylesheet" href='/static/table.css' />
 <table class = "Image table">
+<thead>
+           <th>Key</th>
+           <th>View</th>
+           <th>Update</th>
+           <th>Delete</th>
 
+</thead>
        {% for item in items %}
        <tr>
            <td>{{item}} </td><br><br>

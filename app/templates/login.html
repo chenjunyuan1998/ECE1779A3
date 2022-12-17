@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title> Login </title>
-        <link rel="stylesheet" href='/static/core-style.css' />
+        	<link rel="stylesheet" type="text/css" href='/static/login.css'>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
     </head>
     <body></br></br></br></br></br>
             {% with messages = get_flashed_messages() %}
@@ -18,14 +19,14 @@
              <div class="header">
                 <h3>Welcome, please Log in the system</h3>
              </div></br></br></br>
-
+             <div class="login">
                 <form action="{{ url_for('login') }}" method="post">
                   <div class="msg">{{ msg }}</div>
                     <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
                     <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br></br>
                     <input type="submit" class="btn" value="Sign In"></br></br>
                 </form>
-
             <p class="bottom">Don't have an account?  <a class="bottom" href="{{ url_for('register_get') }}">Create here</a></p>
+             </div>
     </body>
 </html>
