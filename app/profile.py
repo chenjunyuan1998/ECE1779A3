@@ -29,10 +29,10 @@ def upload():#done
         resp = requests.post(cache_http + '/put', json=req)
         print('cache_resp:', resp)
         if resp.json() == 'OK':
-            resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+            resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
             return render_template('profile.html', status='Uploaded',user=username,space= resp_space)
         else:
-            resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+            resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
             return render_template('profile.html', status='Fail to Upload',user=username,space= resp_space)
 
 
@@ -51,10 +51,10 @@ def config():#done
         print('cache_resp:',cache_resp)
         #account_resp = requests.post(account_http + '/updateCapacity', json=req)
         if cache_resp.json() == 'OK' :
-            resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+            resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
             return render_template('profile.html', status='Capacity Set',user=username,space= resp_space)
         else:
-            resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+            resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
             return render_template('profile.html', status='Fail to Set',user=username,space= resp_space)
 
 @webapp.route('/view_all_image', methods=['GET', 'POST'])
@@ -65,7 +65,7 @@ def view_all_image():#done
      req = {
          'username': username,
      }
-     resp = requests.post(cache_http + '/showGallery', json=req)
+     resp = requests.get(cache_http + '/showGallery', json=req)
      print('iamge_resp:', resp)
      if resp:
          resp1 = make_response(render_template('view.html', items=resp))

@@ -33,7 +33,7 @@ def login():#done
         print("resp.json(): ", resp.json())
         if resp.json() == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
-            resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+            resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
             print('resp_space:',resp_space)
             resp1 = make_response(render_template('profile.html',user=username, space= resp_space))
             resp1.set_cookie('username', username)
@@ -93,5 +93,5 @@ def close_account():#done
         return redirect(url_for('login'))
     else:
         msg = 'Fail to delete!'
-        resp_space = requests.post(cache_http + '/showSpaceUsed', json=req)
+        resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
         return render_template('profile.html', msg=msg, user=username,space=resp_space)
