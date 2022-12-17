@@ -1,5 +1,7 @@
 import requests
 from flask import render_template, url_for, request, flash, redirect, make_response
+
+from Backend.Storage import store_global
 from app import webapp
 import base64
 from flask import json
@@ -72,7 +74,8 @@ def view_all_image():#done
     req = {
         'username': username,
     }
-    resp = requests.get(cache_http + '/showGallery', json=req)
+    resp = store_global.store.showGallery(username)
+    #resp = requests.get(cache_http + '/showGallery', json=req).json()
     print('image_resp:', resp)
     print(type(resp))
     if resp:
