@@ -11,10 +11,8 @@ account_http = 'http://localhost:5001'
 @webapp.route('/profile', methods=['GET', 'POST'])
 #@login_required
 def profile():
-    username = request.cookies.get('username')
-    req = {'username' : username}
-    resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-    return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
+
+    return render_template('profile.html')
 
 
 @webapp.route('/upload', methods=['GET', 'POST'])
@@ -35,13 +33,13 @@ def upload():#done
         print('storage_resp:', resp)
         if resp.json() == 1:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Uploaded', user=username, space=resp_space.json())
+            return render_template('profile.html', status='Uploaded', user=username, space=resp_space)
         elif resp.json() == 0:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Fail to Upload', user=username, space=resp_space.json())
+            return render_template('profile.html', status='Fail to Upload', user=username, space=resp_space)
         else:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Error occurred', user=username, space=resp_space.json())
+            return render_template('profile.html', status='Error occurred', user=username, space=resp_space)
 
 
 @webapp.route('/config', methods=['GET', 'POST'])
@@ -56,8 +54,11 @@ def config():#done
             'username': username,
         }
         cache_resp = requests.post(cache_http + '/setCap', json=req)
+        print('cache_resp:', cache_resp)
+        #account_resp = requests.post(account_http + '/updateCapacity', json=req)
         if cache_resp.json() == 'OK':
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
+            print('resp_space.json() profile: ', resp_space.json())
             return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
         else:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
@@ -73,9 +74,9 @@ def view_all_image():#done
         'username': username,
     }
     resp = requests.get(cache_http + '/showGallery', json=req).json()
-    print('image_resp:', resp)
-    if resp:
-        resp1 = make_response(render_template('view.html', items=resp))
+    print('image_resp:', resp.text)
+    if resp.text:
+        resp1 = make_response(render_template('view.html', items=resp.text))
         resp1.set_cookie('username', username)
         return resp1
     else:
