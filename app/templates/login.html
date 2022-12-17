@@ -16,10 +16,11 @@
                 </ul>
               {% endif %}
             {% endwith %}
+
              <div class="header">
                 <h3>Welcome, please Log in the system</h3>
              </div></br></br></br>
-             <div class="login">
+             <div class="signup">
                 <form action="{{ url_for('login') }}" method="post">
                   <div class="msg">{{ msg }}</div>
                     <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
