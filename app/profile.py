@@ -124,6 +124,7 @@ def delete_image():#done
 def update():#done
     if request.method == 'POST':
         key = request.form.get('key')
+        print("key:", key)
         new_image = request.files['file']
         username = request.cookies.get('username')
         base64_image = base64.b64encode(new_image.read())
@@ -134,8 +135,9 @@ def update():#done
             'value': base64_image,
         }
         resp = requests.post(cache_http + '/put', json=req)
-        resp_key = requests.get(cache_http + '/showKeys', json=req).json()
         print('storage_resp:', resp)
+        resp_key = requests.get(cache_http + '/showKeys', json=req).json()
+        print('storage_resp:', resp_key)
         if resp.json() == 1:
             return render_template('view.html', status='Updated',items=resp_key)
         elif resp.json() == 0:
