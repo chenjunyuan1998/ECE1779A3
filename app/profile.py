@@ -66,7 +66,7 @@ def config():#done
             return render_template('profile.html', status='Fail to Set', user=username, space=resp_space.json())
 
 
-@webapp.route('/view_all_image', methods=['GET', 'POST'])
+@webapp.route('/view_all_keys', methods=['GET', 'POST'])
 #@login_required
 def view_all_image():#done
     username = request.cookies.get('username')
@@ -85,6 +85,29 @@ def view_all_image():#done
         return 'There is no image.'
 
 
+
+@webapp.route('/view_image', methods=['GET', 'POST'])
+#@login_required
+def view_image():#done
+    username = request.cookies.get('username')
+    key = request.form.get('key')
+    print('username：', username)
+    req = {
+        'username': username,
+        'key':key,
+    }
+    resp = requests.get(cache_http + '/get', json=req).json()
+    print('image_resp:', resp)
+    print(type(resp))
+    if resp.json() == 'Unknown key':
+        return 'There is no image.'
+    else:
+        resp1 = make_response(render_template('view_image.html', image=resp))
+        resp1.set_cookie('username', username)
+        return resp1
+
+
+
 @webapp.route('/delete_image', methods=['GET', 'POST'])
 #@login_required
 def delete_image():#done
@@ -98,6 +121,6 @@ def delete_image():#done
     resp = requests.post(cache_http + '/deleteValue', json=req)
     print('cache_resp:', resp)
     if resp.json() == 'OK':
-        return redirect('/view_all_image')
+        return redirect('/view_all_keys')
     else:
         return render_template('view.html', status='Fail to delete')

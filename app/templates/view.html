@@ -9,7 +9,7 @@
 
 </table>
 {% if (items is defined) and items %}
-  <h2>Current Stored Image</h2>
+  <h2>Current Stored Image Keys</h2>
 <table class = "Image table">
 <!--<thead>-->
 <!--           <th>Key</th>-->
@@ -18,11 +18,17 @@
 <!--</thead>-->
        {% for item in items %}
        <tr>
-           <td>{{ item}} </td>
+           <td>{{item}} </td><br><br>
 <!--           <td><img src= "data:image/png;base64,{{ item.image }}" alt={{item.image}}  class="image-preview"/></td>-->
            <td>
+               <form action="{{ url_for('view_image')}}" method="post">
+                <input input type="hidden"  name="key" value={{item}}><br><br>
+                <input type="submit" value="View">
+               </form>
+           </td>
+           <td>
                <form action="{{ url_for('upload')}}" method="post">
-                <input input type="hidden"  name="key" value={{item.key}}><br><br>
+                <input input type="hidden"  name="key" value={{item}}><br><br>
                 <input type="file" class="custom-file-input" name="file" value="Select File" required>
                 <input type="submit" value="Update">
                 <div class="status">{{ status }}</div>
@@ -30,7 +36,7 @@
            </td>
            <td>
                <form action="{{ url_for('delete_image')}}" method="post">
-                <input input type="hidden"  name="key" value={{item.key}}><br><br>
+                <input input type="hidden"  name="key" value={{item}}><br><br>
                 <input type="submit" value="Delete">
                 <div class="status">{{ status }}</div>
                </form>
