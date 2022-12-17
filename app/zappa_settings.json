@@ -1,0 +1,10 @@
+{
+    "y": {
+        "app_function": "main.webapp",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "project_name": "app",
+        "runtime": "python3.8",
+        "s3_bucket": "zappa-gtgr76zg5"
+    }
+}
