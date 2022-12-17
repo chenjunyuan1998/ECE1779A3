@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title> Login </title>
-<!--        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">          -->
+        <link rel="stylesheet" href='/static/core-style.css' />
     </head>
     <body></br></br></br></br></br>
             {% with messages = get_flashed_messages() %}
@@ -23,10 +23,6 @@
                   <div class="msg">{{ msg }}</div>
                     <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
                     <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br></br>
-<!--                    <div>-->
-<!--                        <label></label>-->
-<!--                        <input type="checkbox" name="remember"> Remember me<br>-->
-<!--                    </div>-->
                     <input type="submit" class="btn" value="Sign In"></br></br>
                 </form>
 

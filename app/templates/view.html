@@ -7,34 +7,30 @@
 <body>
 <div class="msg">{{ msg }}</div>
 {% if (items is defined) and items %}
-  <h2>Current Stored Image Keys</h2>
+  <h3>Current Stored Image Keys</h3>
+<link rel="stylesheet" href='/static/core-style.css' />
 <table class = "Image table">
-<!--<thead>-->
-<!--           <th>Key</th>-->
-<!--           <th>Image</th>-->
 
-<!--</thead>-->
        {% for item in items %}
        <tr>
            <td>{{item}} </td><br><br>
-<!--           <td><img src= "data:image/png;base64,{{ item.image }}" alt={{item.image}}  class="image-preview"/></td>-->
            <td>
                <form action="{{ url_for('view_image')}}" method="post">
                 <input input type="hidden"  name="key" value={{item}}><br><br>
-                <input type="submit" value="View">
+                <input type="submit" class="btn" value="View">
                </form>
            </td>
            <td>
                <form action="{{ url_for('update')}}" method="post" enctype="multipart/form-data">
                 <input input type="hidden"  name="key" value={{item}}><br><br>
                 <input type="file" class="custom-file-input" name="file" value="Select File" required>
-                <input type="submit" value="Update">
+                <input type="submit" class="btn" value="Update">
                </form>
            </td>
            <td>
                <form action="{{ url_for('delete_image')}}" method="post">
                 <input input type="hidden"  name="key" value={{item}}><br><br>
-                <input type="submit" value="Delete">
+                <input type="submit" class="btn" value="Delete">
                </form>
            </td>
        </tr>
@@ -45,51 +41,5 @@
 
 {% endif %}
 <a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>
-<!--<script type = "text/javascript">-->
-
-<!--    var data = JSON.parse('{{items}}');-->
-<!--    function createTable(array) {-->
-
-<!--    var table = document.createElement('table');-->
-<!--    //var keys = Object.keys(array[0]);-->
-
-<!--    var thead = document.createElement("thead");-->
-<!--    var header_row = document.createElement('tr');-->
-<!--    //for(var i = 0;i < keys.length;i ++)-->
-<!--    //{-->
-<!--        var header_cell1 = document.createElement('th');-->
-<!--        var header_cell2 = document.createElement('th');-->
-<!--        header_cell1.textContent = 'key';-->
-<!--        header_cell2.textContent = 'value';-->
-<!--        header_row.appendChild(header_cell1);-->
-<!--        header_row.appendChild(header_cell2);-->
-<!--    //}-->
-<!--    thead.appendChild(header_row);-->
-<!--    table.appendChild(thead); // append thead to table-->
-
-<!--    var tbody = document.createElement("tbody");-->
-<!--    for (var i = 0; i < array.length; i++) {-->
-<!--        var row = document.createElement('tr');-->
-<!--        for (const [key, value] of Object.entries(array[i])) {-->
-<!--            var cell = document.createElement('td');-->
-<!--            //var image = document.createElement('td');-->
-<!--            //console.log("key : " + key);-->
-<!--            cell.textContent = key-->
-<!--            var src = "data:image/png;base64,";-->
-<!--                src += value;-->
-<!--            var image = new Image();-->
-<!--                image.src = src-->
-<!--            row.appendChild(cell);-->
-<!--            row.appendChild(image);-->
-<!--        }-->
-<!--        tbody.appendChild(row);-->
-<!--    }-->
-<!--    table.appendChild(tbody); // append tbody to table-->
-
-<!--    return table;-->
-<!--}-->
-<!--var table = createTable(data)-->
-<!--document.getElementById("table").appendChild(table)-->
-<!--</script>-->
 </body>
 </html>
