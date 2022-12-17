@@ -117,10 +117,10 @@ class storageInterface:
 
     def showGallery(self, username):
         res = []
-        for key in self.lru_dict.keys():
+        for key in self.lru_dict[username].keys():
             res.append((key, s3Helper.get_image_from_s3(username, key)))
 
-        for key in self.persistent_key.keys():
+        for key in self.persistent_key[username]:
             res.append((key, s3Helper.get_image_from_s3(username, key)))
 
         return res
