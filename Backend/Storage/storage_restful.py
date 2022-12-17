@@ -67,7 +67,7 @@ def deleteUser():
     return get_response(True)
 
 
-@webapp.route('/showGallery', methods=['POST'])
+@webapp.route('/showGallery', methods=['GET'])
 def showGallery():
     req = request.get_json(force=True)
     username = req["username"]
@@ -75,7 +75,7 @@ def showGallery():
     return get_response(True)
 
 
-@webapp.route('/showSpaceUsed', methods=['POST'])
+@webapp.route('/showSpaceUsed', methods=['GET'])
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
