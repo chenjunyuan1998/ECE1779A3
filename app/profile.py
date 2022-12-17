@@ -55,6 +55,7 @@ def config():#done
         }
         cache_resp = requests.post(cache_http + '/setCap', json=req)
         print('cache_resp:', cache_resp)
+        print(cache_resp.json())
         #account_resp = requests.post(account_http + '/updateCapacity', json=req)
         if cache_resp.json() == 'OK':
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
