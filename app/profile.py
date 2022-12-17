@@ -96,13 +96,13 @@ def view_image():#done
         'username': username,
         'key':key,
     }
-    resp = requests.get(cache_http + '/get', json=req).json()
+    resp = requests.get(cache_http + '/get', json=req)
     print('image_resp:', resp)
     print(type(resp))
     if resp.json() == 'Unknown key':
         return 'There is no image.'
     else:
-        resp1 = make_response(render_template('view_image.html', image=resp))
+        resp1 = make_response(render_template('view_image.html', image=resp.text))
         resp1.set_cookie('username', username)
         return resp1
 
