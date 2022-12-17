@@ -20,9 +20,9 @@ def profile():
 def upload():#done
     if request.method == 'POST':
         key = request.form.get('key')
-        new_image = request.files['file']
+        base64_image = request.files['file']
         username = request.cookies.get('username')
-        base64_image = base64.b64encode(new_image.read())
+        #base64_image = base64.b64encode(new_image.read())
         print('username：', username)
         req = {
             'key': key,
