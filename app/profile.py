@@ -122,13 +122,13 @@ def delete_image():#done
 @webapp.route('/update', methods=['GET', 'POST'])
 #@login_required
 def update():#done
-    if request.method == 'POST':
         key = request.form.get('key')
         print("key:", key)
         new_image = request.files['file']
+        print("file:", new_image)
         username = request.cookies.get('username')
-        base64_image = base64.b64encode(new_image.read())
         print('username：', username)
+        base64_image = base64.b64encode(new_image.read())
         req = {
             'key': key,
             'username': username,
