@@ -135,7 +135,7 @@ class storageInterface:
         self.set_cap(username, 10)
         self.space_dict[username] = 0
         self.count_dict[username] = dict()
-        print(self.count_dict[username])
+        print('this is a diction default : ', self.count_dict[username])
         self.persistent_key[username] = set()
         self.lru_dict[username] = OrderedDict()
 
