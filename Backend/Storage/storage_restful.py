@@ -88,6 +88,7 @@ def showSpaceUsed():
 def addUser():
     req = request.get_json(force=True)
     username = req["username"]
+    store_global.store.addUser(username)
     return get_response(True)
 
 def startup_app():
