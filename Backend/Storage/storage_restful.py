@@ -50,7 +50,7 @@ def setCap():
     username = req['username']
     cap = req['capacity']
     store_global.store.set_cap(username, cap)
-    return get_response(True)
+    return json.dumps('OK')
 
 
 @webapp.route('/deleteValue', methods=['POST'])
