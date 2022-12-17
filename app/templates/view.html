@@ -5,9 +5,6 @@
     <title>Image Gallery</title>
 </head>
 <body>
-<table id="table">
-
-</table>
 {% if (items is defined) and items %}
   <h2>Current Stored Image Keys</h2>
 <table class = "Image table">
@@ -27,7 +24,7 @@
                </form>
            </td>
            <td>
-               <form action="{{ url_for('update')}}" method="post">
+               <form action="{{ url_for('update')}}" method="post" enctype="multipart/form-data">
                 <input input type="hidden"  name="key" value={{item}}><br><br>
                 <input type="file" class="custom-file-input" name="file" value="Select File" required>
                 <input type="submit" value="Update">
