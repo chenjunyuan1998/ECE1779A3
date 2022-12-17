@@ -46,7 +46,7 @@
 <!--<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>-->
 <script type = "text/javascript">
 
-    var data = '{{items}}';
+    var data = JSON.parse('{{items}}');
     function createTable(array) {
 
     var table = document.createElement('table');
