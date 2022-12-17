@@ -23,8 +23,10 @@ def get_response(input=False):
 @webapp.route('/put', methods=['POST'])
 def put():
     req = request.get_json(force=True)
-    key, username, value = list(req.items())[0]
-    store_global.store.put_key(username, key, value)
+    key = req['key']
+    username = req['username']
+    value = req['value']
+    store_global.store.put_key(username, key,value)
     return get_response(True)
 
 
