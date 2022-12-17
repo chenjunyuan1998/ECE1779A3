@@ -8,10 +8,11 @@
 
     </head>
     <body></br></br></br></br></br>
+           <div class="signup">
              <div class="header">
-                <h3>Register an account</h3>
+                <h3 style="color: #f9f9f9">Register an account</h3>
              </div></br></br></br>
-            <div class="signup">
+
                 <form action="{{ url_for('register') }}" method="post">
                   <div class="msg">{{ msg }}</div>
                     <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
@@ -23,6 +24,6 @@
                     <h4>Username must only contain number and letters</h4>
                  </div>
             <p class="bottom">Already have an account?  <a class="bottom" href="{{ url_for('login_get') }}"> Login here</a></p>
-            </div>
+           </div>
     </body>
 </html>
