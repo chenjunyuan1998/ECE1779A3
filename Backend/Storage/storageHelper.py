@@ -15,6 +15,7 @@ class storageInterface:
 
     def set_cap(self, username, capacity):
         self.capacity_dict[username] = capacity * 1024 * 1024
+        print(self.capacity_dict[username])
 
     def findFirst(self, ordDict):
         return next(iter(ordDict))
