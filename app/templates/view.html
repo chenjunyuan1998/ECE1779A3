@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
+    <link rel="stylesheet" href='/static/table.css' />
 </head>
 <body>
 <div class="msg">{{ msg }}</div>
 {% if (items is defined) and items %}
   <h3>Current Stored Image Keys</h3>
-<link rel="stylesheet" href='/static/table.css' />
 <table class = "Image table">
 <thead>
            <th>Key</th>

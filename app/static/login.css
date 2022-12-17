@@ -6,7 +6,7 @@ body{
 	align-items: center;
 	min-height: 100vh;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	background: linear-gradient(to bottom, #191748, #3e3379, #44448d);
 }
 .main{
 	width: 350px;
@@ -51,7 +51,7 @@ input{
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #677bc5;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 20px;
@@ -62,7 +62,7 @@ input{
 	cursor: pointer;
 }
 .btn:hover{
-	background: #6d44b8;
+	background: #8da4f8;
 }
 
 p{
