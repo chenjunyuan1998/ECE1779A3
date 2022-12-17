@@ -14,11 +14,12 @@ def main(): #very first page
     return render_template('login.html')
 
 
-@webapp.route('/login_get', methods=['GET','POST'])
+@webapp.route('/login_get', methods=['GET', 'POST'])
 def login_get():#done
     return render_template('login.html')
 
-@webapp.route('/login', methods=['GET','POST'])
+
+@webapp.route('/login', methods=['GET', 'POST'])
 def login():#done
 
         username = request.form.get('username')
@@ -34,8 +35,9 @@ def login():#done
         if resp.json() == 'CORRECT_PWD':
             msg = 'Logged in successfully !'
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            print('resp_space:',resp_space)
-            resp1 = make_response(render_template('profile.html',user=username, space= resp_space))
+            print('resp_space auth:', resp_space)
+            print('resp_space.json() auth:', resp_space.json())
+            resp1 = make_response(render_template('profile.html', user=username, space=resp_space.json()))
             resp1.set_cookie('username', username)
             return resp1
         elif resp.json() == 'INCORRECT_PWD':
@@ -46,10 +48,8 @@ def login():#done
             return render_template('login.html', msg=msg)
 
 
-
-@webapp.route('/register',methods =['GET','POST'])
+@webapp.route('/register', methods=['GET', 'POST'])
 def register():#done
-
         username = request.form.get('username')
         password = request.form.get('password')
         req = {
@@ -57,7 +57,7 @@ def register():#done
             'password': password,
         }
         account_resp = requests.post(account_http + '/signUp', json=req)
-        cache_resp = requests.post(cache_http + '/addUser', json=req)
+        # cache_resp = requests.post(cache_http + '/addUser', json=req)
         if account_resp.json() == 'ALREADY_EXISTS':
             msg = 'Account already exists !'
             return render_template('register.html', msg=msg)
@@ -68,16 +68,18 @@ def register():#done
             msg = 'You have create an account !'
             return render_template('register.html', msg=msg)
 
-@webapp.route('/register_get', methods=['GET','POST'])
+
+@webapp.route('/register_get', methods=['GET', 'POST'])
 def register_get():#done
     return render_template('register.html')
 
 
-@webapp.route('/logout',methods =['GET','POST'])
+@webapp.route('/logout', methods=['GET', 'POST'])
 def logout():#done
     return redirect(url_for('login_get'))
 
-@webapp.route('/close_account',methods =['GET','POST'])
+
+@webapp.route('/close_account', methods=['GET', 'POST'])
 #@login_required
 def close_account():#done
     username = request.cookies.get('username')
@@ -94,4 +96,4 @@ def close_account():#done
     else:
         msg = 'Fail to delete!'
         resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-        return render_template('profile.html', msg=msg, user=username,space=resp_space)
+        return render_template('profile.html', msg=msg, user=username, space=resp_space)
