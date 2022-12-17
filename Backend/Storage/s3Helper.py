@@ -52,7 +52,7 @@ def delete_image_from_s3(user, key):
     image_size = sys.getsizeof(image)
 
     image_key = str(user) + "::" + str(key)
-    s3.delete_object(Key=image_key)
+    s3.delete_object(Bucket=bucket, Key=image_key)
     # print("Deleted image from s3 bucket: ", image_key)
 
     return image_size
