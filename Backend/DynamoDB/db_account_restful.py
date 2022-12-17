@@ -47,6 +47,7 @@ def sign_up():
                 'username': username
             }
             adduser_response = requests.post(storage_http + '/addUser', json=req)
+            print("if add user success ",adduser_response.json())
             credential_response = credential_table.put_item(
                 Item={
                     'username': username,
