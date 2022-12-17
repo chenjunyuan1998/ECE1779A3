@@ -91,7 +91,7 @@ def close_account():#done
     cache_resp = requests.post(cache_http + '/deleteUser', json=req)
     account_resp = requests.post(account_http + '/closeAccount', json=req)
     if cache_resp.json() == 'OK' and account_resp.json() == 'DELETED_USER':
-        flash('Delete successfully !')
+        # flash('Delete successfully !')
         return redirect(url_for('login'))
     else:
         msg = 'Fail to delete!'
