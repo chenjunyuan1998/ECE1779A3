@@ -1,5 +1,5 @@
-from Backend.Storage import store_global, webapp, storageHelper
-from Backend.Storage import webapp
+from Backend.Storage import store_global,storageHelper
+from Backend.Storage.main import webapp
 
 from flask import request
 import json
