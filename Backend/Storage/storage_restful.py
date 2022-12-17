@@ -26,7 +26,9 @@ def put():
     key = req['key']
     username = req['username']
     value = req['value']
-    return store_global.store.put_key(username, key,value)
+    response = store_global.store.put_key(username, key,value)
+    print(response)
+    return json.dumps(response)
 
 
 @webapp.route('/get', methods=['POST'])
@@ -36,9 +38,9 @@ def get():
     key = req["key"]
     response = store_global.store.get_key(username, key)
     if not response:
-        return "Unknown key"
+        return json.dumps("Unknown key")
     else:
-        return response
+        return json.dumps(response)
 
 
 @webapp.route('/setCap', methods=['POST'])
@@ -57,7 +59,7 @@ def deleteValue():
     username = req['username']
     key = req['key']
     response = store_global.store.deleteValue(username, key)
-    return response
+    return json.dumps(response)
 
 
 @webapp.route('/deleteUser', methods=['POST'])
@@ -72,22 +74,20 @@ def deleteUser():
 def showGallery():
     req = request.get_json(force=True)
     username = req["username"]
-    store_global.store.showGallery(username)
-    return get_response(True)
+    return json.dumps(store_global.store.showGallery(username))
 
 
 @webapp.route('/showSpaceUsed', methods=['GET'])
 def showSpaceUsed():
     req = request.get_json(force=True)
     username = req["username"]
-    return store_global.store.showSpaceAllocated(username)
+    return json.dumps(store_global.store.showSpaceAllocated(username))
 
 
 @webapp.route('/addUser', methods=['POST'])
 def addUser():
     req = request.get_json(force=True)
     username = req["username"]
-    store_global.store.showSpaceAllocated(username)
     return get_response(True)
 
 def startup_app():

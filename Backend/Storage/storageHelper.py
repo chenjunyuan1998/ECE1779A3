@@ -128,8 +128,7 @@ class storageInterface:
         self.capacity_dict[username] = cap
 
     def showSpaceAllocated(self, username):
-        print('what is this', self.space_dict[username])
-        return self.space_dict[username] / (1024 ** 2) if self.space_dict[username]!= 0 else 0
+        return self.space_dict[username] / (1024 ** 2)
 
     def addUser(self, username):
         self.set_cap(username, 10)
