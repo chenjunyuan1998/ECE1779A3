@@ -5,20 +5,6 @@ from flask import request
 import json
 
 
-def get_response(input=False):
-    if input:
-        response = webapp.response_class(
-            response=json.dumps('OK'),
-            status=200,
-            mimetype='application/json'
-        )
-    else:
-        response = webapp.response_class(
-            response=json.dumps('Bad Request'),
-            status=400,
-            mimetype='application/json'
-        )
-
 
 @webapp.route('/put', methods=['POST'])
 def put():
@@ -67,7 +53,7 @@ def deleteUser():
     req = request.get_json(force=True)
     username = req['username']
     store_global.store.delete_user(username)
-    return get_response(True)
+    return json.dumps('OK')
 
 
 @webapp.route('/showGallery', methods=['GET'])
@@ -89,7 +75,7 @@ def addUser():
     req = request.get_json(force=True)
     username = req["username"]
     store_global.store.addUser(username)
-    return get_response(True)
+    return json.dumps('OK')
 
 def startup_app():
     store_global.store = storageHelper.storageInterface()
