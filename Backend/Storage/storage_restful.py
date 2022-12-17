@@ -27,7 +27,7 @@ def put():
     username = req['username']
     value = req['value']
     response = store_global.store.put_key(username, key,value)
-    print(response)
+    print("put from storage: ", response)
     return json.dumps(response)
 
 
