@@ -5,7 +5,10 @@
     <title>Image Gallery</title>
 </head>
 <body>
-<!--<p>{{items}}</p>-->
+<table id="table">
+
+</table>
+<p>{{items}}</p>
 <!--{% if (items is defined) and items %}-->
 <!--  <h2>Current Stored Image</h2>-->
 <!--<table class = "Image table">-->
@@ -81,7 +84,7 @@
     return table;
 }
 var result = createTable(data)
-document.body.appendChild(result);
+document.getElementById("table").appendChild(result)
 </script>
 </body>
 </html>
