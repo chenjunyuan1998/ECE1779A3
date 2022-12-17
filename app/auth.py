@@ -96,4 +96,4 @@ def close_account():#done
     else:
         msg = 'Fail to delete!'
         resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-        return render_template('profile.html', msg=msg, user=username, space=resp_space)
+        return render_template('profile.html', msg=msg, user=username, space=resp_space.json())

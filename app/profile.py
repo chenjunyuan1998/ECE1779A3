@@ -11,8 +11,10 @@ account_http = 'http://localhost:5001'
 @webapp.route('/profile', methods=['GET', 'POST'])
 #@login_required
 def profile():
-
-    return render_template('profile.html')
+    username = request.cookies.get('username')
+    req = {'username' : username}
+    resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
+    return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
 
 
 @webapp.route('/upload', methods=['GET', 'POST'])
@@ -33,13 +35,13 @@ def upload():#done
         print('storage_resp:', resp)
         if resp.json() == 1:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Uploaded', user=username, space=resp_space)
+            return render_template('profile.html', status='Uploaded', user=username, space=resp_space.json())
         elif resp.json() == 0:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Fail to Upload', user=username, space=resp_space)
+            return render_template('profile.html', status='Fail to Upload', user=username, space=resp_space.json())
         else:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            return render_template('profile.html', status='Error occurred', user=username, space=resp_space)
+            return render_template('profile.html', status='Error occurred', user=username, space=resp_space.json())
 
 
 @webapp.route('/config', methods=['GET', 'POST'])
@@ -54,12 +56,8 @@ def config():#done
             'username': username,
         }
         cache_resp = requests.post(cache_http + '/setCap', json=req)
-        print('cache_resp:', cache_resp)
-        print(cache_resp.json())
-        #account_resp = requests.post(account_http + '/updateCapacity', json=req)
         if cache_resp.json() == 'OK':
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            print('resp_space.json() profile: ', resp_space.json())
             return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
         else:
             resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
