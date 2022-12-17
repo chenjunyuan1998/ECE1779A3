@@ -1,7 +1,7 @@
 
 from boto3.dynamodb.conditions import Key
 from flask import Flask
-from app.auth import auth_routes
+from auth import auth_routes
 from app.profile import profile_routes
 #global memcache
 
