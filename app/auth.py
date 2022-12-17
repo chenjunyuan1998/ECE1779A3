@@ -10,11 +10,6 @@ cache_http = 'http://localhost:5002'
 account_http= 'http://localhost:5001'
 
 
-@auth_routes.route('/')
-def main(): #very first page
-    return render_template('login.html')
-
-
 @auth_routes.route('/login_get', methods=['GET', 'POST'])
 def login_get():#done
     return render_template('login.html')
