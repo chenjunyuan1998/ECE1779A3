@@ -71,13 +71,15 @@
         var row = document.createElement('tr');
         for (const [key, value] of Object.entries(array[i])) {
             var cell = document.createElement('td');
-            console.log("key : " + key);
-            //cell.textContent = value
-            // var src = "data:image/png;base64,";
-            // src += value;
-            // var image = new Image();
-            // image.src = src
+            //var image = document.createElement('td');
+            //console.log("key : " + key);
+            cell.textContent = key
+            var src = "data:image/png;base64,";
+                src += value;
+            var image = new Image();
+                image.src = src
             row.appendChild(cell);
+            row.appendChild(image);
         }
         tbody.appendChild(row);
     }
