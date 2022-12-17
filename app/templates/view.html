@@ -5,7 +5,7 @@
     <title>Image Gallery</title>
 </head>
 <body>
-<p>{{items}}</p>
+<!--<p>{{items}}</p>-->
 <!--{% if (items is defined) and items %}-->
 <!--  <h2>Current Stored Image</h2>-->
 <!--<table class = "Image table">-->
@@ -41,6 +41,47 @@
 
 <!--{% endif %}-->
 <!--<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>-->
+<script>
+    var data = {{items}}
+    function createTable(array) {
 
+    var table = document.createElement('table');
+    //var keys = Object.keys(array[0]);
+
+    var thead = document.createElement("thead");
+    var header_row = document.createElement('tr');
+    //for(var i = 0;i < keys.length;i ++)
+    //{
+        var header_cell1 = document.createElement('th');
+        var header_cell2 = document.createElement('th');
+        header_cell1.textContent = 'key';
+        header_cell2.textContent = 'value';
+        header_row.appendChild(header_cell1);
+        header_row.appendChild(header_cell2);
+    //}
+    thead.appendChild(header_row);
+    table.appendChild(thead); // append thead to table
+
+    var tbody = document.createElement("tbody");
+    for (var i = 0; i < array.length; i++) {
+        var row = document.createElement('tr');
+        for (const [key, value] of Object.entries(array[i])) {
+            var cell = document.createElement('td');
+            console.log("key : " + key);
+            var src = "data:image/png;base64,";
+            src += value;
+            var image = new Image();
+            image.src = src
+            row.appendChild(image);
+        }
+        tbody.appendChild(row);
+    }
+    table.appendChild(tbody); // append tbody to table
+
+    return table;
+}
+var result = createTable(data)
+document.body.appendChild(result);
+</script>
 </body>
 </html>
