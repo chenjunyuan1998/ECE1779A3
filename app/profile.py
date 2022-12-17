@@ -114,10 +114,9 @@ def delete_image():#done
     }
     resp = requests.post(cache_http + '/deleteValue', json=req)
     print('cache_resp:', resp)
-    if resp.json() == 'OK':
-        return redirect('/view_all_keys')
-    else:
-        return render_template('view.html', status='Fail to delete')
+    resp_key = requests.get(cache_http + '/showKeys', json=req).json()
+    print('image_resp:', resp_key)
+    return render_template('view.html', items=resp_key)
 
 @webapp.route('/update', methods=['GET', 'POST'])
 #@login_required
