@@ -1,5 +1,5 @@
 import requests
-from flask import render_template, url_for, request, flash, redirect, make_response
+from flask import render_template, url_for, request, flash, redirect, make_response, session
 
 from Backend.Storage import store_global
 from app import webapp
@@ -77,12 +77,9 @@ def view_all_image():#done
     resp = requests.get(cache_http + '/showKeys', json=req).json()
     print('image_resp:', resp)
     print(type(resp))
-    if resp:
-        resp1 = make_response(render_template('view.html', items=resp))
-        resp1.set_cookie('username', username)
-        return resp1
-    else:
-        return 'There is no image.'
+    resp1 = make_response(render_template('view.html', items=resp))
+    resp1.set_cookie('username', username)
+    return resp1
 
 
 
@@ -121,3 +118,27 @@ def delete_image():#done
         return redirect('/view_all_keys')
     else:
         return render_template('view.html', status='Fail to delete')
+
+@webapp.route('/update', methods=['GET', 'POST'])
+#@login_required
+def update():#done
+    if request.method == 'POST':
+        key = request.form.get('key')
+        new_image = request.files['file']
+        username = request.cookies.get('username')
+        base64_image = base64.b64encode(new_image.read())
+        print('username：', username)
+        req = {
+            'key': key,
+            'username': username,
+            'value': base64_image,
+        }
+        resp = requests.post(cache_http + '/put', json=req)
+        resp_key = requests.get(cache_http + '/showKeys', json=req).json()
+        print('storage_resp:', resp)
+        if resp.json() == 1:
+            return render_template('view.html', status='Updated',items=resp_key)
+        elif resp.json() == 0:
+            return render_template('view.html', status='Fail to update',items=resp_key)
+        else:
+            return render_template('view.html', status='Error occurred',items=resp_key)
