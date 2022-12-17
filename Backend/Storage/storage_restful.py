@@ -60,7 +60,8 @@ def deleteUser():
 def showGallery():
     req = request.get_json(force=True)
     username = req["username"]
-    return json.dumps(store_global.store.showGallery(username))
+    return store_global.store.showGallery(username)
+    #return json.dumps(store_global.store.showGallery(username))
 
 
 @webapp.route('/showSpaceUsed', methods=['GET'])
