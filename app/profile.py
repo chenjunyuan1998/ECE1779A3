@@ -114,15 +114,14 @@ def delete_image():#done
     }
     resp = requests.post(cache_http + '/deleteValue', json=req)
     print('cache_resp:', resp)
+    resp_key = requests.get(cache_http + '/showKeys', json=req).json()
+    print('image_resp:', resp_key)
     if resp.json() == 'OK':
-        resp_key = requests.get(cache_http + '/showKeys', json=req).json()
-        print('image_resp:', resp_key)
-        print(type(resp_key))
         resp1 = make_response(render_template('view.html', items=resp_key))
         resp1.set_cookie('username', username)
         return resp1
     else:
-        return render_template('view.html', status='Fail to delete')
+        return render_template('view.html', status='Fail to delete',items=resp_key)
 
 @webapp.route('/update', methods=['GET', 'POST'])
 #@login_required
