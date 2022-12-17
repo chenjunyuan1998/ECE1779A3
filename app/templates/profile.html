@@ -6,7 +6,7 @@
     <link rel="stylesheet" href='/static/profile.css' />
 </head>
 <body>
-        <h3>Welcome, {{user}}</h3>
+        <h1>Welcome, {{user}}</h1>
         <div class = "info">Capacity in used: {{space}} MB</div>
         <div class = "operations">
             <div class = "upload_config">
@@ -18,13 +18,13 @@
                         <input type="file" class="custom-file-input" name="file" value="Select File" required>
                         <input type="submit" class="btn" value="upload" /></br></br>
                     </form>
-                    </br></br></br></br>
+                    </br></br></br></br></br></br>
                     <form action="{{ url_for('config')}}"  enctype="multipart/form-data" method="post">
                         <label>Capacity </label>
                         <input type="text" name="capacity" required><label>MB</label>
                         <input type="submit" class="btn" value="Set"></br></br>
                     </form>
-                   </br></br></br></br>
+                   </br></br></br></br></br></br>
             </div>
             <div class="view_keys">
             <form action="{{ url_for('view_all_image')}}" method="post">

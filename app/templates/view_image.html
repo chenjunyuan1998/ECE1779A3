@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Display image</title>
-    <link rel="stylesheet" href='/static/core-style.css' />
+    <link rel="stylesheet" href='/static/table.css' />
 </head>
 <body>
 
         <div>
-             <img src="data:;base64,{{ image }}" style= width:400px;height:600px;/>
+             <img src="data:;base64,{{ image }}" style= width:500px;height:800px;/>
         </div>
         <a href="{{ url_for('view_all_image')}}" data-item ="main">Go back to Key List</a>
 </body>

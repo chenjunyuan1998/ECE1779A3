@@ -58,9 +58,20 @@ a{
   text-transform: uppercase;
   color: #8da4f8;
 }
-h2{
+h1{
   text-transform: uppercase;
   color: #677bc5;
+  font-size: x-large;
+}
+.info{
+  text-transform: uppercase;
+  font-size: large;
+  color:#0f0c29;
+}
+.status {
+  text-transform: uppercase;
+  color: #677bc5;
+  font-size: medium;
 }
 input[type = submit]{
   font-family: Verdana, monospace;
