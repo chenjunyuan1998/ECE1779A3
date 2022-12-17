@@ -16,22 +16,23 @@
        {% for item in items %}
        <tr>
            <td>{{ item.key }} </td>
-           <td><img src= "data:image/png;base64,{{ item.image }}" alt={{item.image}}  class="image-preview"/></td>
-           <td>
-               <form action="{{ url_for('upload')}}" method="post">
-                <input input type="hidden"  name="key" value={{item.key}}><br><br>
-                <input type="file" class="custom-file-input" name="file" value="Select File" required>
-                <input type="submit" value="Update">
-                <div class="status">{{ status }}</div>
-               </form>
-           </td>
-           <td>
-               <form action="{{ url_for('delete_image')}}" method="post">
-                <input input type="hidden"  name="key" value={{item.key}}><br><br>
-                <input type="submit" value="Delete">
-                <div class="status">{{ status }}</div>
-               </form>
-           </td>
+           <td>{{ item.image }} </td>
+<!--           <td><img src= "data:image/png;base64,{{ item.image }}" alt={{item.image}}  class="image-preview"/></td>-->
+<!--           <td>-->
+<!--               <form action="{{ url_for('upload')}}" method="post">-->
+<!--                <input input type="hidden"  name="key" value={{item.key}}><br><br>-->
+<!--                <input type="file" class="custom-file-input" name="file" value="Select File" required>-->
+<!--                <input type="submit" value="Update">-->
+<!--                <div class="status">{{ status }}</div>-->
+<!--               </form>-->
+<!--           </td>-->
+<!--           <td>-->
+<!--               <form action="{{ url_for('delete_image')}}" method="post">-->
+<!--                <input input type="hidden"  name="key" value={{item.key}}><br><br>-->
+<!--                <input type="submit" value="Delete">-->
+<!--                <div class="status">{{ status }}</div>-->
+<!--               </form>-->
+<!--           </td>-->
        </tr>
        {% endfor %}
 </table>
@@ -40,5 +41,7 @@
 
 {% endif %}
 <a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>
+
+
 </body>
 </html>
