@@ -8,8 +8,8 @@ dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_k
                           aws_secret_access_key=aws_config['aws_secret_access_key'])
 credential_table = dynamodb.Table('UserCredentialTable')
 
-storage_http = 'http://localhost:5002'
-# storage_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
+# storage_http = 'http://localhost:5002'
+storage_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
 
 
 @webapp.route('/signIn', methods=['POST'])
