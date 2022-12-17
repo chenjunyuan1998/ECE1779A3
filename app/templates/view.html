@@ -5,18 +5,27 @@
     <title>Image Gallery</title>
 </head>
 <body>
-{% if (items is defined) and items %}
-  <h2>Current Stored Image</h2>
-<table class = "Image table">
-<thead>
-           <th>Key</th>
-           <th>Image</th>
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>KEY</th>
+            <th>VALUE</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<!--{% if (items is defined) and items %}-->
+<!--  <h2>Current Stored Image</h2>-->
+<!--<table class = "Image table">-->
+<!--<thead>-->
+<!--           <th>Key</th>-->
+<!--           <th>Image</th>-->
 
-</thead>
-       {% for item in items %}
-       <tr>
-           <td>{{ item.key }} </td>
-           <td>{{ item.image }} </td>
+<!--</thead>-->
+<!--       {% for item in items %}-->
+<!--       <tr>-->
+<!--           <td>{{ item.key }} </td>-->
 <!--           <td><img src= "data:image/png;base64,{{ item.image }}" alt={{item.image}}  class="image-preview"/></td>-->
 <!--           <td>-->
 <!--               <form action="{{ url_for('upload')}}" method="post">-->
@@ -33,15 +42,22 @@
 <!--                <div class="status">{{ status }}</div>-->
 <!--               </form>-->
 <!--           </td>-->
-       </tr>
-       {% endfor %}
-</table>
-{% else %}
-        <h3>There is no image.</h3>
+<!--       </tr>-->
+<!--       {% endfor %}-->
+<!--</table>-->
+<!--{% else %}-->
+<!--        <h3>There is no image.</h3>-->
 
-{% endif %}
-<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>
+<!--{% endif %}-->
+<!--<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>-->
+ <script type="text/javascript" src="scripts/jquery-1.10.2.js">
+      var resData = {{items}},
+      $tbody = $('#myTable').find('tbody');
 
+      JSON.parse(resData, function (k, v) {
+      $tbody.append('<tr><td>'+k+'</td><td>'+v+'</td></tr>');
+    });
+</script>
 
 </body>
 </html>
