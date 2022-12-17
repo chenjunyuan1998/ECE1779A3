@@ -1,6 +1,6 @@
 import requests
 from flask import render_template, url_for, request, flash, redirect, make_response, session
-from flask import Blueprint
+
 from Backend.Storage import store_global
 from app import webapp
 import base64
@@ -9,9 +9,8 @@ import os
 cache_http = 'http://localhost:5002'
 account_http = 'http://localhost:5001'
 
-profile_routes = Blueprint("profile_routes", __name__)
 
-@profile_routes.route('/profile', methods=['GET', 'POST'])
+@webapp.route('/profile', methods=['GET', 'POST'])
 #@login_required
 def profile():
     username = request.cookies.get('username')
@@ -20,7 +19,7 @@ def profile():
     return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
 
 
-@profile_routes.route('/upload', methods=['GET', 'POST'])
+@webapp.route('/upload', methods=['GET', 'POST'])
 #@login_required
 def upload():#done
     if request.method == 'POST':
@@ -47,7 +46,7 @@ def upload():#done
             return render_template('profile.html', status='Error occurred', user=username, space=resp_space.json())
 
 
-@profile_routes.route('/config', methods=['GET', 'POST'])
+@webapp.route('/config', methods=['GET', 'POST'])
 #@login_required
 def config():#done
     if request.method == 'POST':
@@ -67,7 +66,7 @@ def config():#done
             return render_template('profile.html', status='Fail to Set', user=username, space=resp_space.json())
 
 
-@profile_routes.route('/view_all_keys', methods=['GET', 'POST'])
+@webapp.route('/view_all_keys', methods=['GET', 'POST'])
 #@login_required
 def view_all_image():#done
     username = request.cookies.get('username')
@@ -84,7 +83,7 @@ def view_all_image():#done
 
 
 
-@profile_routes.route('/view_image', methods=['GET', 'POST'])
+@webapp.route('/view_image', methods=['GET', 'POST'])
 #@login_required
 def view_image():#done
     username = request.cookies.get('username')
@@ -103,7 +102,7 @@ def view_image():#done
 
 
 
-@profile_routes.route('/delete_image', methods=['GET', 'POST'])
+@webapp.route('/delete_image', methods=['GET', 'POST'])
 #@login_required
 def delete_image():#done
     username = request.cookies.get('username')
@@ -120,7 +119,7 @@ def delete_image():#done
     else:
         return render_template('view.html', status='Fail to delete')
 
-@profile_routes.route('/update', methods=['GET', 'POST'])
+@webapp.route('/update', methods=['GET', 'POST'])
 #@login_required
 def update():#done
     if request.method == 'POST':

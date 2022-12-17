@@ -1,27 +1,25 @@
 import profile
-from flask import Blueprint
+
 import requests
 from flask import render_template, url_for, request, redirect, make_response,flash
 from app import webapp
 from flask import json
 
-auth_routes = Blueprint("auth_routes", __name__)
-
 cache_http = 'http://localhost:5002'
 account_http= 'http://localhost:5001'
 
 
-@auth_routes.route('/')
+@webapp.route('/')
 def main(): #very first page
     return render_template('login.html')
 
 
-@auth_routes.route('/login_get', methods=['GET', 'POST'])
+@webapp.route('/login_get', methods=['GET', 'POST'])
 def login_get():#done
     return render_template('login.html')
 
 
-@auth_routes.route('/login', methods=['GET', 'POST'])
+@webapp.route('/login', methods=['GET', 'POST'])
 def login():#done
 
         username = request.form.get('username')
@@ -50,7 +48,7 @@ def login():#done
             return render_template('login.html', msg=msg)
 
 
-@auth_routes.route('/register', methods=['GET', 'POST'])
+@webapp.route('/register', methods=['GET', 'POST'])
 def register():#done
         username = request.form.get('username')
         password = request.form.get('password')
@@ -71,17 +69,17 @@ def register():#done
             return render_template('register.html', msg=msg)
 
 
-@auth_routes.route('/register_get', methods=['GET', 'POST'])
+@webapp.route('/register_get', methods=['GET', 'POST'])
 def register_get():#done
     return render_template('register.html')
 
 
-@auth_routes.route('/logout', methods=['GET', 'POST'])
+@webapp.route('/logout', methods=['GET', 'POST'])
 def logout():#done
     return redirect(url_for('login_get'))
 
 
-@auth_routes.route('/close_account', methods=['GET', 'POST'])
+@webapp.route('/close_account', methods=['GET', 'POST'])
 #@login_required
 def close_account():#done
     username = request.cookies.get('username')
