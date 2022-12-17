@@ -5,16 +5,7 @@
     <title>Image Gallery</title>
 </head>
 <body>
-<table id="myTable">
-    <thead>
-        <tr>
-            <th>KEY</th>
-            <th>VALUE</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<p>{{items}}</p>
 <!--{% if (items is defined) and items %}-->
 <!--  <h2>Current Stored Image</h2>-->
 <!--<table class = "Image table">-->
@@ -50,14 +41,6 @@
 
 <!--{% endif %}-->
 <!--<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>-->
- <script type="text/javascript" src="scripts/jquery-1.10.2.js">
-      var resData = {{items}},
-      $tbody = $('#myTable').find('tbody');
-
-      JSON.parse(resData, function (k, v) {
-      $tbody.append('<tr><td>'+k+'</td><td>'+v+'</td></tr>');
-    });
-</script>
 
 </body>
 </html>
