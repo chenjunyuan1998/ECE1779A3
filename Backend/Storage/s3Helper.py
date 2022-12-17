@@ -20,6 +20,7 @@ def put_image_to_s3(user, key, value):
     #_, extension = os.path.splitext(value.filename)
     #base64_image = base64.b64encode(value.read())
     image_key = str(user) + "::" + str(key)
+    print('image key from put : ', image_key)
     s3.put_object(Body=value, Key=image_key, Bucket=bucket, ContentType='image')
     image_url = 'https://s3.amazonaws.com/' + bucket + '/' + image_key + '.jpg'
     #image_size = sys.getsizeof(base64_image)
@@ -32,6 +33,7 @@ def get_image_from_s3(user, key):
     Get image from s3 bucket.
     """
     image_key = str(user) + "::" + str(key)
+    print('image key from get : ', image_key)
     with open('Temp.txt', 'wb') as file:
         s3.download_fileobj(bucket, image_key, file)
     with open('Temp.txt', 'rb') as file:
