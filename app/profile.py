@@ -117,9 +117,10 @@ def delete_image():#done
     resp_key = requests.get(cache_http + '/showKeys', json=req).json()
     print('image_resp:', resp_key)
     if resp.json() == 'OK':
-        resp1 = make_response(render_template('view.html', items=resp_key))
-        resp1.set_cookie('username', username)
-        return resp1
+        # resp1 = make_response(render_template('view.html', items=resp_key))
+        # resp1.set_cookie('username', username)
+        # return resp1
+        return render_template('view.html', items=resp_key)
     else:
         return render_template('view.html', status='Fail to delete',items=resp_key)
 
