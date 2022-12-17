@@ -72,7 +72,7 @@ def view_all_image():#done
     req = {
         'username': username,
     }
-    resp = requests.get(cache_http + '/showGallery', json=req)
+    resp = requests.get(cache_http + '/showGallery', json=req).json()
     print('image_resp:', resp)
     print(type(resp))
     if resp:

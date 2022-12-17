@@ -44,8 +44,8 @@
 <!--{% endif %}-->
 <!--<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>-->
 <script type = "text/javascript">
-    var stats_data = JSON.parse('{{ items | tojson | safe}}')
-    var data = {{stats_data}}
+
+    var data = '{{items}}';
     function createTable(array) {
 
     var table = document.createElement('table');
