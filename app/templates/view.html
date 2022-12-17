@@ -5,7 +5,7 @@
     <title>Image Gallery</title>
 </head>
 <body>
-<!--{% if (items is defined) and items %}-->
+{% if (items is defined) and items %}
   <h2>Current Stored Image</h2>
 <table class = "Image table">
 <thead>
@@ -35,10 +35,10 @@
        </tr>
        {% endfor %}
 </table>
-<!--{% else %}-->
-<!--        <h3>There is no image.</h3>-->
+{% else %}
+        <h3>There is no image.</h3>
 
-<!--{% endif %}-->
+{% endif %}
 <a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>
 </body>
 </html>

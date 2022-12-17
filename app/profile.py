@@ -12,7 +12,7 @@ account_http = 'http://localhost:5001'
 #@login_required
 def profile():
     username = request.cookies.get('username')
-    req = {'username': username}
+    req = {'username' : username}
     resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
     return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
 
