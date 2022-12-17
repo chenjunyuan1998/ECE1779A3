@@ -2,7 +2,6 @@ import requests
 from flask import render_template, url_for, request, flash, redirect, make_response, session
 from flask import Blueprint
 from Backend.Storage import store_global
-from app import webapp
 import base64
 from flask import json
 import os
