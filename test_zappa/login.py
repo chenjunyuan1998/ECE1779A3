@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from test_zappa.app import webapp
+from app import webapp
 
 @webapp.route('/')
 def login():
