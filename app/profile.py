@@ -10,7 +10,7 @@ cache_http = 'http://localhost:5002'
 account_http = 'http://localhost:5001'
 
 
-@webapp.route('/profile', methods=['GET', 'POST'])
+@webapp.route('/profile', methods=['POST'])
 #@login_required
 def profile():
     username = request.cookies.get('username')
@@ -19,7 +19,7 @@ def profile():
     return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
 
 
-@webapp.route('/upload', methods=['GET', 'POST'])
+@webapp.route('/upload', methods=['POST'])
 #@login_required
 def upload():#done
     if request.method == 'POST':
@@ -46,7 +46,7 @@ def upload():#done
             return render_template('profile.html', status='Error occurred', user=username, space=resp_space.json())
 
 
-@webapp.route('/config', methods=['GET', 'POST'])
+@webapp.route('/config', methods=['POST'])
 #@login_required
 def config():#done
     if request.method == 'POST':
