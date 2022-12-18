@@ -1,1 +1,1 @@
-from Backend.DynamoDB.db_account_restful import *
+# from Backend.DynamoDB.db_account_restful import *

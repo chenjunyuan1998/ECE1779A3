@@ -1,8 +1,7 @@
 import json, requests
 import boto3
-from flask import request
-from Backend.DynamoDB.main import webapp
-from Backend.Config import aws_config
+from flask import Blueprint, request
+from Config import aws_config
 
 dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_key_id'],
                           aws_secret_access_key=aws_config['aws_secret_access_key'])
@@ -11,8 +10,10 @@ credential_table = dynamodb.Table('UserCredentialTable')
 storage_http = 'http://localhost:5002'
 # storage_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
 
+db_routes = Blueprint('db_routes', __name__)
 
-@webapp.route('/signIn', methods=['POST'])
+
+@db_routes.route('/signIn', methods=['POST'])
 def sign_in():
     req_json = request.get_json(force=True)
     username = req_json['username']
@@ -31,7 +32,7 @@ def sign_in():
         return json.dumps("INVALID_USER")
 
 
-@webapp.route('/signUp', methods=['POST'])
+@db_routes.route('/signUp', methods=['POST'])
 def sign_up():
     req_json = request.get_json(force=True)
     username = req_json["username"]
@@ -60,7 +61,7 @@ def sign_up():
             return json.dumps("INVALID_NAME")
 
 
-@webapp.route('/closeAccount', methods=['POST'])
+@db_routes.route('/closeAccount', methods=['POST'])
 def close_account():
     req_json = request.get_json(force=True)
     username = req_json["username"]
