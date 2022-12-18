@@ -14,12 +14,12 @@ def main(): #very first page
     return render_template('login.html')
 
 
-@webapp.route('/login_get', methods=['POST'])
+@webapp.route('/login_get', methods=['GET', 'POST'])
 def login_get():#done
     return render_template('login.html')
 
 
-@webapp.route('/login', methods=['POST'])
+@webapp.route('/login', methods=['GET', 'POST'])
 def login():#done
 
         username = request.form.get('username')
@@ -48,7 +48,7 @@ def login():#done
             return render_template('login.html', msg=msg)
 
 
-@webapp.route('/register', methods=['POST'])
+@webapp.route('/register', methods=['GET', 'POST'])
 def register():#done
         username = request.form.get('username')
         password = request.form.get('password')
@@ -74,12 +74,12 @@ def register_get():#done
     return render_template('register.html')
 
 
-@webapp.route('/logout', methods=['POST'])
+@webapp.route('/logout', methods=['GET', 'POST'])
 def logout():#done
     return redirect(url_for('login_get'))
 
 
-@webapp.route('/close_account', methods=['POST'])
+@webapp.route('/close_account', methods=['GET', 'POST'])
 #@login_required
 def close_account():#done
     username = request.cookies.get('username')
