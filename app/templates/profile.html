@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Options</title>
-    <link rel="stylesheet" href='/static/profile.css' />
+    <link rel="stylesheet" href='static/profile.css' />
 </head>
 <body>
         <h1>Welcome, {{user}}</h1>
         <div class = "info">Capacity in used: {{space}} MB</div>
         <div class = "operations">
             <div class = "upload_config">
+                </br></br>
                 <div class="status">{{ status }}</div>
+                </br></br>
                     <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
                         <label>key:</label>
                         <input type="text" name="key" maxlength="10" required>
@@ -24,27 +26,28 @@
                         <input type="text" name="capacity" required><label>MB</label>
                         <input type="submit" class="btn" value="Set"></br></br>
                     </form>
-                   </br></br></br></br>
+                   </br></br></br>
             </div>
             <div class="view_keys">
             <form action="{{ url_for('view_all_image')}}" method="post">
-                <input type="submit" class="btn" value="View All Image"></br></br>
+                <input type="submit" class="btn" value="View All Keys"></br></br>
             </form>
              </div>
             </br></br>
-            <div class="logout">
-            <form action="{{ url_for('logout')}}" method="post">
-                <input type="submit" class="btn" value="Log out"></br></br>
-            </form>
-            </div>
             <div class="close_account">
             <form action="{{ url_for('close_account')}}" method="post">
-                <div class="msg">{{ msg }}</div>
+                <div class="msg">{{ msg }}</div></br></br>
                 <label>Please enter password again to delete account:</label>
                 <input type="password" name="password" required>
                 <input type="submit" class="btn" value="Delete Account"></br></br>
             </form>
             </div>
+            <div class="logout">
+            <form action="{{ url_for('logout')}}" method="post">
+                <input type="submit" class="btn" value="Log out"></br></br>
+            </form>
+            </div>
+
         </div>
 </body>
 </html>

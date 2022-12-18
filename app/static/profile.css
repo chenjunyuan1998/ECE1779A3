@@ -68,9 +68,9 @@ h1{
   font-size: large;
   color:#0f0c29;
 }
-.status {
+.status{
   text-transform: uppercase;
-  color: #677bc5;
+  color: #f39304;
   font-size: medium;
 }
 input[type = submit]{
@@ -113,6 +113,11 @@ select{
   background: #dad5f1;
   color: #677bc5;
   border: none;
+}
+.msg{
+  text-transform: uppercase;
+  color: #f39304;
+  font-size: medium;
 }
 upload_config{
 

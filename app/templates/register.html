@@ -5,7 +5,6 @@
         <title> Register </title>
         <link rel="stylesheet" type="text/css" href='/static/login.css'>
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     </head>
     <body></br></br></br></br></br>
@@ -16,16 +15,13 @@
 
                 <form action="{{ url_for('register') }}" method="post">
                   <div class="msg">{{ msg }}</div>
-                    <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
-                    <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br>
-                    <input type="submit" class="btn" value="Register"></br>
+                    <p style="color: #f39304">Username must only contain number and letters</p>
+                    <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/>
+                    <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/>
+                    <input type="submit" class="btn" value="Register">
                 </form>
 
-                 <div class="w3-panel w3-pale-yellow w3-border">
-                    <h4>Username Rule:</h4>
-                    <p>Username must only contain number and letters</p>
-                 </div>
-            <p class="bottom" style="color: #f9f9f9;justify-content: center">Already have an account?  <a class="bottom" href="{{ url_for('login_get') }}"> Login here</a></p>
+            <p class="bottom" style="color: #ffffff;justify-content: center">Already have an account?  <a class="bottom" href="{{ url_for('login_get') }}"> Login here</a></p>
            </div>
     </body>
 </html>
