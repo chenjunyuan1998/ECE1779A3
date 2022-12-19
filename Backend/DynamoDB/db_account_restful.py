@@ -7,7 +7,7 @@ dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_config['aws_access_k
                           aws_secret_access_key=aws_config['aws_secret_access_key'])
 credential_table = dynamodb.Table('UserCredentialTable')
 
-storage_http = 'http://54.85.217.181:5002'
+storage_http = 'http://54.197.199.59:5002'
 
 db_routes = Blueprint('db_routes', __name__)
 
