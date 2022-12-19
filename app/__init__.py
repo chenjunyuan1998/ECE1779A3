@@ -1,2 +1,2 @@
-from app.auth import *
-from app.profile import *
+# from app.auth import *
+# from app.profile import *
