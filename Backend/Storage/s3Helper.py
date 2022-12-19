@@ -37,7 +37,7 @@ def get_image_from_s3(user, key):
     with open('Temp.txt', 'wb') as file:
         s3.download_fileobj(bucket, image_key, file)
     with open('Temp.txt', 'rb') as file:
-        base64_image = file.read()
+        base64_image = file.read().decode('utf-8')
     file.close()
     os.remove("Temp.txt")
     # print("Got image from s3 bucket: ", image_key)
