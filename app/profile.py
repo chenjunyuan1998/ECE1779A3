@@ -7,18 +7,18 @@ import base64
 from flask import json
 import os
 
-cache_http = 'http://localhost:5002'
-account_http = 'http://localhost:5001'
+cache_http = 'http://54.85.217.181:5002'
+# account_http = 'http://localhost:5001'
 
 # cache_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
-# account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
+account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
 
 
 @webapp.route('/profile', methods=['GET', 'POST'])
 #@login_required
 def profile():
     username = request.cookies.get('username')
-    req = {'username' : username}
+    req = {'username': username}
     resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
     return render_template('profile.html', status='Capacity Set', user=username, space=resp_space.json())
 
@@ -86,7 +86,6 @@ def view_all_image():#done
     return resp1
 
 
-
 @webapp.route('/view_image', methods=['GET', 'POST'])
 #@login_required
 def view_image():#done
@@ -105,7 +104,6 @@ def view_image():#done
     return resp1
 
 
-
 @webapp.route('/delete_image', methods=['GET', 'POST'])
 #@login_required
 def delete_image():#done
@@ -121,6 +119,7 @@ def delete_image():#done
     resp_key = requests.get(cache_http + '/showKeys', json=req).json()
     print('image_resp:', resp_key)
     return render_template('view.html', items=resp_key)
+
 
 @webapp.route('/update', methods=['GET', 'POST'])
 #@login_required

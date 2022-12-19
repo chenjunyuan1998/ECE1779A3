@@ -5,7 +5,7 @@ from flask import render_template, url_for, request, redirect, make_response,fla
 from app.main import webapp
 from flask import json
 
-cache_http = 'http://localhost:5002'
+cache_http = 'http://54.85.217.181:5002'
 # account_http = 'http://localhost:5001'
 
 # cache_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
