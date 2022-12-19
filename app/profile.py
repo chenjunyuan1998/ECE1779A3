@@ -3,7 +3,7 @@ from flask import render_template, request, make_response, Blueprint
 
 profile_routes = Blueprint('profile_routes', __name__)
 
-cache_http = 'http://54.85.217.181:5002'
+cache_http = 'http://54.197.199.59:5002'
 account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
 
 
@@ -23,7 +23,7 @@ def upload():#done
         key = request.form.get('key')
         new_image = request.files['file']
         username = request.cookies.get('username')
-        base64_image = base64.b64encode(new_image.read())
+        base64_image = base64.b64encode(new_image.read()).decode('utf-8')
         print('username：', username)
 
         req = {
@@ -134,7 +134,7 @@ def update():#done
         username = request.cookies.get('username')
 
         print('username：', username)
-        base64_image = base64.b64encode(new_image.read())
+        base64_image = base64.b64encode(new_image.read()).decode('utf-8')
 
         req = {
             'key': key,

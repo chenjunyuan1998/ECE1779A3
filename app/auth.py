@@ -3,7 +3,7 @@ from flask import render_template, url_for, request, redirect, make_response, Bl
 
 auth_routes = Blueprint('auth_routes', __name__)
 
-cache_http = 'http://54.85.217.181:5002'
+cache_http = 'http://54.197.199.59:5002'
 account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
 
 
@@ -71,7 +71,7 @@ def register_get():#done
 
 @auth_routes.route('/logout', methods=['GET', 'POST'])
 def logout():#done
-    return redirect(url_for('login_get'))
+    return redirect(url_for('auth_routes.login_get'))
 
 
 @auth_routes.route('/close_account', methods=['GET', 'POST'])
@@ -87,7 +87,7 @@ def close_account():#done
     account_resp = requests.post(account_http + '/closeAccount', json=req)
     if cache_resp.json() == 'OK' and account_resp.json() == 'DELETED_USER':
         # flash('Delete successfully !')
-        return redirect(url_for('login_get'))
+        return redirect(url_for('auth_routes.login_get'))
     else:
         msg = 'Fail to delete!'
         resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
