@@ -42,6 +42,7 @@ table td.r, table th.r {
   text-align: center;
 }
 
+
 blockquote {
   color: white;
   text-align: center;
@@ -58,7 +59,7 @@ a{
   text-transform: uppercase;
   color: #8da4f8;
 }
-h2{
+h2,h3{
   text-transform: uppercase;
   color: #677bc5;
 }
@@ -103,4 +104,3 @@ select{
   color: #677bc5;
   border: none;
 }
-
