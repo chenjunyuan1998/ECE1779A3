@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Login </title>
+        	<link rel="stylesheet" type="text/css" href='/static/login.css'>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    </head>
+    <body></br></br></br></br></br>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+
+             <div class="signup">
+                <div class="header">
+                   <h3 style="color: #f9f9f9;justify-content: center">Log in the system</h3>
+                </div></br></br></br>
+
+                <form action="{{ url_for('login') }}" method="post">
+                  <div class="msg">{{ msg }}</div>
+                    <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
+                    <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br></br>
+                    <input type="submit" class="btn" value="Sign In"></br></br>
+                </form>
+                 <p class="bottom" style="color: #f9f9f9;justify-content: center">Don't have an account?  <a class="bottom" href="{{ url_for('register_get') }}">Create here</a></p>
+             </div>
+    </body>
+</html>

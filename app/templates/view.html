@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href='/static/table.css' />
+</head>
+<body>
+<div class="msg">{{ msg }}</div>
+{% if (items is defined) and items %}
+  <h3>Current Stored Image Keys</h3>
+<table class = "Image table">
+<thead>
+           <th>Key</th>
+           <th>View</th>
+           <th>Update</th>
+           <th>Delete</th>
+
+</thead>
+       {% for item in items %}
+       <tr>
+           <td>{{item}} </td><br><br>
+           <td>
+               <form action="{{ url_for('view_image')}}" method="post">
+                <input input type="hidden"  name="key" value={{item}}><br><br>
+                <input type="submit" class="btn" value="View">
+               </form>
+           </td>
+           <td>
+               <form action="{{ url_for('update')}}" method="post" enctype="multipart/form-data">
+                <input input type="hidden"  name="key" value={{item}}><br><br>
+                <input type="file" class="custom-file-input" name="file" value="Select File" required>
+                <input type="submit" class="btn" value="Update">
+               </form>
+           </td>
+           <td>
+               <form action="{{ url_for('delete_image')}}" method="post">
+                <input input type="hidden"  name="key" value={{item}}><br><br>
+                <input type="submit" class="btn" value="Delete">
+               </form>
+           </td>
+       </tr>
+       {% endfor %}
+</table>
+{% else %}
+        <h3>There is no image.</h3>
+
+{% endif %}
+<a href="{{ url_for('profile')}}" data-item ="main">Go back to profile</a>
+</body>
+</html>
