@@ -1,88 +1,80 @@
-import profile
-
 import requests
-from flask import render_template, url_for, request, redirect, make_response,flash
-from app.main import webapp
-from flask import json
+from flask import render_template, url_for, request, redirect, make_response, Blueprint
 
-cache_http = 'http://54.85.217.181:5002'
-# account_http = 'http://localhost:5001'
+auth_routes = Blueprint('auth_routes', __name__)
 
-# cache_http = 'https://4a8pwpqo5g.execute-api.us-east-1.amazonaws.com/storage'
+cache_http = 'http://54.209.18.112:5002'
 account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
 
 
-@webapp.route('/')
+@auth_routes.route('/')
 def main(): #very first page
     return render_template('login.html')
 
 
-@webapp.route('/login_get', methods=['GET', 'POST'])
+@auth_routes.route('/login_get', methods=['GET', 'POST'])
 def login_get():#done
     return render_template('login.html')
 
 
-@webapp.route('/login', methods=['GET', 'POST'])
+@auth_routes.route('/login', methods=['GET', 'POST'])
 def login():#done
+    username = request.form.get('username')
+    password = request.form.get('password')
 
-        username = request.form.get('username')
-        password =  request.form.get('password')
-        #remember = True if request.form.get('remember') else False
-
-        req = {
-            'username': username,
-            'password': password,
-        }
-        resp = requests.post(account_http + '/signIn', json=req)
-        print("resp.json(): ", resp.json())
-        if resp.json() == 'CORRECT_PWD':
-            msg = 'Logged in successfully !'
-            resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
-            print('resp_space auth:', resp_space)
-            print('resp_space.json() auth:', resp_space.json())
-            resp1 = make_response(render_template('profile.html', user=username, space=resp_space.json()))
-            resp1.set_cookie('username', username)
-            return resp1
-        elif resp.json() == 'INCORRECT_PWD':
-            msg = 'Incorrect password !'
-            return render_template('login.html', msg=msg)
-        else:
-            msg = 'Invalid user!'
-            return render_template('login.html', msg=msg)
+    req = {
+        'username': username,
+        'password': password,
+    }
+    resp = requests.post(account_http + '/signIn', json=req)
+    print("resp.json(): ", resp.json())
+    if resp.json() == 'CORRECT_PWD':
+        msg = 'Logged in successfully !'
+        resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)
+        print('resp_space auth:', resp_space)
+        print('resp_space.json() auth:', resp_space.json())
+        resp1 = make_response(render_template('profile.html', user=username, space=resp_space.json()))
+        resp1.set_cookie('username', username)
+        return resp1
+    elif resp.json() == 'INCORRECT_PWD':
+        msg = 'Incorrect password !'
+        return render_template('login.html', msg=msg)
+    else:
+        msg = 'Invalid user!'
+        return render_template('login.html', msg=msg)
 
 
-@webapp.route('/register', methods=['GET', 'POST'])
+@auth_routes.route('/register', methods=['GET', 'POST'])
 def register():#done
-        username = request.form.get('username')
-        password = request.form.get('password')
-        req = {
-            'username': username,
-            'password': password,
-        }
-        account_resp = requests.post(account_http + '/signUp', json=req)
-        # cache_resp = requests.post(cache_http + '/addUser', json=req)
-        if account_resp.json() == 'ALREADY_EXISTS':
-            msg = 'Account already exists !'
-            return render_template('register.html', msg=msg)
-        elif account_resp.json() == 'INVALID_NAME':
-            msg = 'Invalid Username !'
-            return render_template('register.html', msg=msg)
-        else:
-            msg = 'You have create an account !'
-            return render_template('register.html', msg=msg)
+    username = request.form.get('username')
+    password = request.form.get('password')
+    req = {
+        'username': username,
+        'password': password,
+    }
+    account_resp = requests.post(account_http + '/signUp', json=req)
+    if account_resp.json() == 'ALREADY_EXISTS':
+        msg = 'Account already exists !'
+        return render_template('register.html', msg=msg)
+    elif account_resp.json() == 'INVALID_NAME':
+        msg = 'Invalid Username !'
+        return render_template('register.html', msg=msg)
+    else:
+        msg = 'You have create an account !'
+        return render_template('register.html', msg=msg)
 
 
-@webapp.route('/register_get', methods=['GET', 'POST'])
+@auth_routes.route('/register_get', methods=['GET', 'POST'])
 def register_get():#done
     return render_template('register.html')
 
 
-@webapp.route('/logout', methods=['GET', 'POST'])
+@auth_routes.route('/logout', methods=['GET', 'POST'])
 def logout():#done
-    return redirect(url_for('login_get'))
+    return redirect(url_for('auth_routes.login_get'))
 
 
-@webapp.route('/close_account', methods=['GET', 'POST'])
+@auth_routes.route('/close_account', methods=['GET', 'POST'])
 #@login_required
 def close_account():#done
     username = request.cookies.get('username')
@@ -95,7 +87,7 @@ def close_account():#done
     account_resp = requests.post(account_http + '/closeAccount', json=req)
     if cache_resp.json() == 'OK' and account_resp.json() == 'DELETED_USER':
         # flash('Delete successfully !')
-        return redirect(url_for('login_get'))
+        return redirect(url_for('auth_routes.login_get'))
     else:
         msg = 'Fail to delete!'
         resp_space = requests.get(cache_http + '/showSpaceUsed', json=req)

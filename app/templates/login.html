@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title> Login </title>
-        	<link rel="stylesheet" type="text/css" href='/static/login.css'>
+        	<link rel="stylesheet" type="text/css" href='https://ece1779a3group19.s3.amazonaws.com/login.css'>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
     </head>
     <body></br></br></br></br></br>
@@ -23,13 +23,13 @@
                    <h3 style="color: #f9f9f9;justify-content: center">Log in the system</h3>
                 </div></br></br></br>
 
-                <form action="{{ url_for('login') }}" method="post">
+                <form action="{{ url_for('auth_routes.login') }}" method="post">
                   <div class="msg">{{ msg }}</div>
                     <input id="username" name="username" type="text" placeholder="Enter Your Username" class="textbox" required/></br></br>
                     <input id="password" name="password" type="password" placeholder="Enter Your Password" class="textbox" required/></br></br></br>
                     <input type="submit" class="btn" value="Sign In"></br></br>
                 </form>
-                 <p class="bottom" style="color: #f9f9f9;justify-content: center">Don't have an account?  <a class="bottom" href="{{ url_for('register_get') }}">Create here</a></p>
+                 <p class="bottom" style="color: #ffffff;justify-content: center">Don't have an account?  <a class="bottom" style="color: #ffffff" href="{{ url_for('auth_routes.register_get') }}">Create here</a></p>
              </div>
     </body>
 </html>

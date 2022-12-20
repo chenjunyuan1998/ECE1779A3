@@ -28,7 +28,7 @@ class storageInterface:
             self.count_dict[username][key] = 0
         self.count_dict[username][key] += 1
 
-        if key not in self.persistent_key[username] and key not in self.persistent_key[username]:
+        if key not in self.persistent_key[username]:
             if key in self.lru_dict[username]:
                 self.lru_dict[username].move_to_end(key)
                 self.space_dict[username] -= s3Helper.delete_image_from_s3(username,key)
@@ -45,9 +45,9 @@ class storageInterface:
             self.addToPersistent(username, key)
 
         else:
-            cur = s3Helper.get_size(value)
+            cur = s3Helper.get_size(key)
             self.space_dict[username] -= cur
-            if self.space_dict[username] + value > self.capacity_dict[username]:
+            if self.space_dict[username] + sys.getsizeof(value) > self.capacity_dict[username]:
                 while self.space_dict[username] > self.capacity_dict[username]:
                     if not self.lru_dict[username]:
                         self.space_dict[username] += cur
