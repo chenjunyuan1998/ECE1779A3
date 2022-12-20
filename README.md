@@ -1,7 +1,7 @@
 # ECE1779A3
 
 
-Assignment 3 for ECE1724 University of Toronto Author: Junyuan Chen, Yijing Chen, Tiantian Lin
+Assignment 3 for ECE1779 University of Toronto Author: Junyuan Chen, Yijing Chen, Tiantian Lin
 
 Launch Instruction:
 
