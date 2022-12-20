@@ -8,7 +8,7 @@
 <body>
 
         <div>
-             <img src="data:;base64,{{ image }}" style= width:500px;height:800px;/>
+             <img src="data:;base64,{{ image }}" style="max-width: 100%; max-height: calc(100vh - 200px);"/>
         </div>
         <a href="{{ url_for('profile_routes.view_all_image')}}" data-item ="main">Go back to Key List</a>
 </body>

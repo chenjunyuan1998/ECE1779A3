@@ -3,7 +3,7 @@ from flask import render_template, request, make_response, Blueprint
 
 profile_routes = Blueprint('profile_routes', __name__)
 
-cache_http = 'http://54.197.199.59:5002'
+cache_http = 'http://54.209.18.112:5002'
 account_http = 'https://xwtbovbyfj.execute-api.us-east-1.amazonaws.com/db'
 
 
